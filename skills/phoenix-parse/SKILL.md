@@ -1,6 +1,6 @@
 ---
 name: phoenix-parse
-description: "Core skill: scan .phoenix/design/ documents, generate INDEX.md with directory tree and summaries, detect changes via git diff, and provide collaboration suggestions. This is the intelligence layer of PhoenixCollab."
+description: "Core skill: scan .phoenix/design/ documents, generate INDEX.md with directory tree and summaries, detect changes via git diff, and provide collaboration suggestions. This is the intelligence layer of PhoenixTeam."
 user-invocable: true
 ---
 
@@ -23,7 +23,7 @@ None.
    - SIGNALS.md latest blockers/progress
    - Format:
      ```markdown
-     # PhoenixCollab INDEX
+     # PhoenixTeam INDEX
 
      ## North Star
      {extracted from THESIS.md}

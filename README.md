@@ -1,27 +1,27 @@
-# PhoenixCollab
+# PhoenixTeam
 
 纯 Prompt 实现的分布式 AI 团队文档协作插件 — 零代码、零开发、立即可用。
 
 ## 简介
 
-PhoenixCollab 以纯 Prompt Skill 的形式，让 AI 编码工具（Claude Code、Codex CLI）直接扮演"协作插件"，管理多人 AI 团队的设计文档。所有操作通过自然语言指令触发，AI 自动调用 Git、读写文件、解析文档，无需写任何代码。
+PhoenixTeam 以纯 Prompt Skill 的形式，让 AI 编码工具（Claude Code、Codex CLI）直接扮演"协作插件"，管理多人 AI 团队的设计文档。所有操作通过自然语言指令触发，AI 自动调用 Git、读写文件、解析文档，无需写任何代码。
 
 ## 安装
 
 ### Claude Code — `.claude/commands/`（推荐）
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-collab
+git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-team
 
 # 安装到当前项目
 mkdir -p .claude/commands
-for skill in /tmp/phoenix-collab/skills/*/SKILL.md; do
+for skill in /tmp/phoenix-team/skills/*/SKILL.md; do
   cp "$skill" ".claude/commands/$(basename $(dirname $skill)).md"
 done
 
 # 或全局安装（对所有项目生效）
 mkdir -p ~/.claude/commands
-for skill in /tmp/phoenix-collab/skills/*/SKILL.md; do
+for skill in /tmp/phoenix-team/skills/*/SKILL.md; do
   cp "$skill" ~/.claude/commands/$(basename $(dirname $skill)).md
 done
 ```
@@ -30,21 +30,21 @@ done
 
 ```bash
 /plugin marketplace add surebeli/PhoenixTeam
-/plugin install phoenix-collab@PhoenixTeam
+/plugin install phoenix-team@PhoenixTeam
 ```
 
 ### Codex CLI
 
 ```bash
-git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-collab
+git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-team
 ```
 
 ### 任意 AI 工具 — 独立 Prompt
 
-将 `PHOENIXCOLLAB.md` 复制到项目根目录，在 AI 工具中输入：
+将 `PHOENIXTEAM.md` 复制到项目根目录，在 AI 工具中输入：
 
 ```
-你现在是 PhoenixCollab Plugin v1.3，完全遵循 ./PHOENIXCOLLAB.md 中的所有规则。
+你现在是 PhoenixTeam Plugin v1.3，完全遵循 ./PHOENIXTEAM.md 中的所有规则。
 Skill: init
 ```
 
@@ -129,7 +129,7 @@ PhoenixTeam/
 │   └── phoenix-archive/SKILL.md
 ├── CLAUDE.md                     # 共享上下文（Claude Code 自动加载）
 ├── AGENTS.md                     # 共享上下文（Codex CLI 自动加载）
-├── PHOENIXCOLLAB.md              # 独立 Prompt 版（手动模式）
+├── PHOENIXTEAM.md              # 独立 Prompt 版（手动模式）
 └── docs/design/                  # 示例设计文档
 ```
 

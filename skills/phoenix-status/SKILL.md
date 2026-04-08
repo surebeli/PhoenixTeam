@@ -1,6 +1,6 @@
 ---
 name: phoenix-status
-description: "Show full PhoenixCollab workspace status: Git state, current identity, collaborator map, INDEX summary, recent diffs by collaborator, unresolved blockers, and team consistency score (0-100)."
+description: "Show full PhoenixTeam workspace status: Git state, current identity, collaborator map, INDEX summary, recent diffs by collaborator, unresolved blockers, and team consistency score (0-100)."
 user-invocable: true
 ---
 

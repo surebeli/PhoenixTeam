@@ -11,7 +11,7 @@ Push document changes with enforced diff review.
 
 ## Parameters
 
-- `$ARGUMENTS`: Optional custom commit message. Default: `"[PhoenixCollab] {current code} 文档更新"`
+- `$ARGUMENTS`: Optional custom commit message. Default: `"[PhoenixTeam] {current code} 文档更新"`
 
 ## Execution Steps (forced diff check)
 
@@ -21,7 +21,7 @@ Push document changes with enforced diff review.
    - Changed files per collaborator
    - Lines added/deleted with key content highlights
 4. If there are uncommitted changes, run `git add .phoenix/**/*.md`.
-5. Commit with the provided message or default: `"[PhoenixCollab] {code} 文档更新"`.
+5. Commit with the provided message or default: `"[PhoenixTeam] {code} 文档更新"`.
 6. Run `git push`.
 7. Output: push result + commit hash + this push's diff summary.
 

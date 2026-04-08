@@ -1,12 +1,12 @@
 {
-  "name": "phoenix-collab",
+  "name": "phoenix-team",
   "version": "1.3.0",
   "description": "Distributed AI team document collaboration plugin — pure prompt, zero code. Manage design docs across multiple AI agents with Git-native diff awareness and collaborator identity tracking.",
   "skills": "../skills/",
   "interface": {
-    "displayName": "PhoenixCollab",
+    "displayName": "PhoenixTeam",
     "shortDescription": "AI team document collaboration via Git",
-    "longDescription": "PhoenixCollab manages distributed AI team design documents with Git-native diff tracking, collaborator identity mapping, and automatic document normalization. Works as a pure prompt plugin — zero code required.",
+    "longDescription": "PhoenixTeam manages distributed AI team design documents with Git-native diff tracking, collaborator identity mapping, and automatic document normalization. Works as a pure prompt plugin — zero code required.",
     "developerName": "PhoenixTeam",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],

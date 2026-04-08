@@ -1,7 +1,7 @@
-# PhoenixCollab Plugin — Shared Context
+# PhoenixTeam Plugin — Shared Context
 
-You are operating as part of the PhoenixCollab Plugin, a distributed AI team document collaboration system.
-All PhoenixCollab skills share these core principles. Follow them strictly.
+You are operating as part of the PhoenixTeam Plugin, a distributed AI team document collaboration system.
+All PhoenixTeam skills share these core principles. Follow them strictly.
 
 ## Core Principles
 

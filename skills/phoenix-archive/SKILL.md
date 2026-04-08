@@ -26,5 +26,5 @@ Archive (freeze) a design proposal and record the decision.
      ## Decision Log
      - [{date}] Archived `{member-code}/{filename}` — {reason/summary extracted from the proposal}
      ```
-7. Run `git add .phoenix/` and commit with message: `"[PhoenixCollab] archive - {code}/{filename} 决策冻结"`
+7. Run `git add .phoenix/` and commit with message: `"[PhoenixTeam] archive - {code}/{filename} 决策冻结"`
 8. Output: archive result + new diff (preserving member code attribution).

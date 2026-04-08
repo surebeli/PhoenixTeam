@@ -1,13 +1,13 @@
 ---
 name: phoenix-init
-description: "Initialize PhoenixCollab: set up collaborator identity, normalize design documents into .phoenix/, create core files, and establish Git diff baseline. Use this when starting PhoenixCollab for the first time or onboarding a new collaborator."
+description: "Initialize PhoenixTeam: set up collaborator identity, normalize design documents into .phoenix/, create core files, and establish Git diff baseline. Use this when starting PhoenixTeam for the first time or onboarding a new collaborator."
 user-invocable: true
 argument-hint: "[--branch=phoenix-docs | --submodule]"
 ---
 
 # Skill: init
 
-Initialize the PhoenixCollab workspace for the current collaborator.
+Initialize the PhoenixTeam workspace for the current collaborator.
 
 ## Parameters
 
@@ -23,7 +23,7 @@ Output the following block **verbatim** (substituting `{git_name}`), then **stop
 
 ---
 
-**【PhoenixCollab init – 第一步】**
+**【PhoenixTeam init – 第一步】**
 
 请提供您的协作者代号（nickname / member code，例如 alice、bob、dev-007）。
 这个代号将用于区分不同协作者的文档。
@@ -42,7 +42,7 @@ After the member code is determined, continue. Output the following block **verb
 
 ---
 
-**【PhoenixCollab init – 第二步】**
+**【PhoenixTeam init – 第二步】**
 
 请提供您本地设计文档所在目录（可以是 1 个或多个目录，用逗号分隔）。
 示例：`./design`、`./docs/alice-proposal`、`./superpowers-output`
@@ -63,7 +63,7 @@ After the user replies with directories:
    - Known collaborators list (initially just the current user)
    - Format:
      ```markdown
-     # PhoenixCollab Collaborators
+     # PhoenixTeam Collaborators
 
      ## Current Session
      - Active user: {code}
@@ -81,6 +81,6 @@ After the user replies with directories:
    - `.phoenix/THESIS.md` — Project design constitution (extract North Star from source docs if possible, otherwise leave with a placeholder)
    - `.phoenix/RULES.md` — Code conventions (initial template)
    - `.phoenix/SIGNALS.md` — Runtime status (initial template with empty blockers section)
-6. Run `git add .phoenix/` and commit with message: `"[PhoenixCollab] init - {code} 规范化设计文档"`
+6. Run `git add .phoenix/` and commit with message: `"[PhoenixTeam] init - {code} 规范化设计文档"`
 7. **Automatically trigger `/phoenix-parse`** (execute the parse skill inline).
 8. Output: `"初始化完成！您的身份已记录为 {code}，文档已规范化到 .phoenix/design/{code}/，Git diff 基线已建立。"`
