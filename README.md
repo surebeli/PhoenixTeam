@@ -20,7 +20,7 @@ PhoenixCollab 是 PhoenixTeam 产品的 Demo 实现。它以纯 Prompt Skill 的
 
 ```bash
 # 克隆插件源码
-git clone https://github.com/your-username/PhoenixTeam.git /tmp/phoenix-collab
+git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-collab
 
 # 复制到目标项目的 commands 目录
 cd your-project
@@ -49,7 +49,7 @@ done
 
 ```bash
 # 在 Claude Code 中执行（将 your-username 替换为你的 GitHub 用户名）
-/plugin marketplace add your-username/PhoenixTeam
+/plugin marketplace add surebeli/PhoenixTeam
 /plugin install phoenix-collab@PhoenixTeam
 ```
 
@@ -57,7 +57,7 @@ done
 
 ```bash
 # 克隆整个插件到 Codex skills 目录
-git clone https://github.com/your-username/PhoenixTeam.git ~/.codex/skills/phoenix-collab
+git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-collab
 ```
 
 Codex CLI 会自动扫描 `~/.codex/skills/` 下的所有 SKILL.md 文件。
