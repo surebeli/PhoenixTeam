@@ -44,20 +44,22 @@ git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-te
 将 `PHOENIXTEAM.md` 复制到项目根目录，在 AI 工具中输入：
 
 ```
-你现在是 PhoenixTeam Plugin v1.3，完全遵循 ./PHOENIXTEAM.md 中的所有规则。
+你现在是 PhoenixTeam Plugin v1.4，完全遵循 ./PHOENIXTEAM.md 中的所有规则。
 Skill: init
 ```
 
 ## 使用
 
 ```bash
-/phoenix-init      # 初始化：设置代号 → 指定文档目录 → 自动规范化
+/phoenix-init      # 初始化（首人设定项目目标，后续者确认并加入）
 /phoenix-status    # 查看全局状态与一致性评分
 /phoenix-pull      # 拉取远程变更 + 自动 diff 解读
 /phoenix-push      # 推送文档变更（强制 diff 检查）
 /phoenix-parse     # 重新解析文档、更新索引
 /phoenix-suggest   # 获取基于 diff 的协作建议
 /phoenix-diff      # 查看精确变更（按协作者分组）
+/phoenix-review    # 多人分歧分析（只读）
+/phoenix-align     # 分歧收敛（交互式决策）
 /phoenix-archive   # 归档并冻结提案
 ```
 
@@ -65,33 +67,41 @@ Skill: init
 
 | 命令 | 功能 | 参数 |
 |------|------|------|
-| `/phoenix-init` | 初始化工作区 | 交互式 |
+| `/phoenix-init` | 初始化（首人设目标 → 后续者确认加入） | 交互式 |
 | `/phoenix-pull` | 拉取 + 解析 + diff 摘要 | — |
 | `/phoenix-push` | 推送（含强制 diff 检查） | 可选 commit message |
 | `/phoenix-parse` | 扫描文档、生成 INDEX.md | — |
 | `/phoenix-status` | 全局状态 + 一致性评分 (0-100) | — |
 | `/phoenix-suggest` | 基于 diff 的协作建议 | 可选问题 |
 | `/phoenix-diff` | diff 详情（按协作者分组） | `--last` / `--commit=<hash>` / `--against=origin/main` |
+| `/phoenix-review` | 分歧分析（对比多人文档 vs THESIS） | 可选聚焦主题 |
+| `/phoenix-align` | 分歧收敛（提案对比 → 决策 → 更新 THESIS） | 分歧主题 或 `all` |
 | `/phoenix-archive` | 提案归档 + 决策冻结 | `<代号/文件名>` |
 
 ## 协作流程
 
 ```
-Alice (Claude Code)                 Bob (Codex CLI)
-        │                                  │
- /phoenix-init                      /phoenix-init
- 代号: alice                         代号: bob
-        │                                  │
- 编辑 .phoenix/design/alice/        编辑 .phoenix/design/bob/
-        │                                  │
- /phoenix-push ─────► Git ◄──────── /phoenix-push
-        │                                  │
- /phoenix-pull                      /phoenix-pull
- "bob 新增 GraphQL 提案,                    │
-  与 THESIS REST 策略冲突"          /phoenix-suggest
-        │                         "基于 alice 的 diff，建议..."
- /phoenix-suggest
- "建议触发 archive + 仲裁"
+Alice (Claude Code)                    Bob (Codex CLI)
+       │                                     │
+ /phoenix-init (founder)              /phoenix-init (join)
+ 设定项目目标 → THESIS.md             确认目标 → 加入协作
+       │                                     │
+ 编辑 .phoenix/design/alice/          编辑 .phoenix/design/bob/
+       │                                     │
+ /phoenix-push ──────► Git ◄───────── /phoenix-push
+       │                                     │
+ /phoenix-pull                        /phoenix-pull
+       │                                     │
+       └──────── 发现分歧 ────────────────────┘
+                    │
+            /phoenix-review
+            "alice 主张 REST，bob 主张 GraphQL,
+             与 THESIS 对比分析..."
+                    │
+            /phoenix-align
+            对比方案 → 人类决策 → 更新 THESIS
+                    │
+            /phoenix-push（同步对齐结果）
 ```
 
 ## .phoenix/ 目录结构
@@ -116,20 +126,25 @@ Alice (Claude Code)                 Bob (Codex CLI)
 
 ```
 PhoenixTeam/
-├── .claude-plugin/plugin.json    # Claude Code 插件清单
+├── .claude-plugin/
+│   ├── marketplace.json          # marketplace 清单
+│   └── plugin.json               # Claude Code 插件定义
 ├── .codex-plugin/plugin.json     # Codex CLI 插件清单
-├── skills/                       # 8 个 Skill（两平台共用）
-│   ├── phoenix-init/SKILL.md
-│   ├── phoenix-pull/SKILL.md
-│   ├── phoenix-push/SKILL.md
-│   ├── phoenix-parse/SKILL.md
-│   ├── phoenix-status/SKILL.md
-│   ├── phoenix-suggest/SKILL.md
-│   ├── phoenix-diff/SKILL.md
-│   └── phoenix-archive/SKILL.md
-├── CLAUDE.md                     # 共享上下文（Claude Code 自动加载）
-├── AGENTS.md                     # 共享上下文（Codex CLI 自动加载）
-├── PHOENIXTEAM.md              # 独立 Prompt 版（手动模式）
+├── plugin/                       # 插件本体
+│   ├── skills/                   # 10 个 Skill（两平台共用）
+│   │   ├── phoenix-init/         # 初始化（首人设目标）
+│   │   ├── phoenix-pull/         # 拉取 + diff
+│   │   ├── phoenix-push/         # 推送（diff 检查）
+│   │   ├── phoenix-parse/        # 文档索引
+│   │   ├── phoenix-status/       # 状态概览
+│   │   ├── phoenix-suggest/      # 协作建议
+│   │   ├── phoenix-diff/         # diff 详情
+│   │   ├── phoenix-review/       # 分歧分析
+│   │   ├── phoenix-align/        # 分歧收敛
+│   │   └── phoenix-archive/      # 提案归档
+│   ├── CLAUDE.md                 # 共享上下文（Claude Code）
+│   └── AGENTS.md                 # 共享上下文（Codex CLI）
+├── PHOENIXTEAM.md                # 独立 Prompt 版（手动模式）
 └── docs/design/                  # 示例设计文档
 ```
 

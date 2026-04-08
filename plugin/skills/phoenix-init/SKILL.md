@@ -15,9 +15,15 @@ Initialize the PhoenixTeam workspace for the current collaborator.
 
 ## Execution Steps (follow strictly in order)
 
+### Step 0 — Detect first-init vs join
+
+Check whether `.phoenix/` directory already exists:
+- If **NOT exists** → this is a **first init** (founder mode). Continue to Step 1.
+- If **exists** → this is a **join** (collaborator mode). Skip to Step 1 but mark `{is_founder} = false`.
+
 ### Step 1 — Ask for member code
 
-Before asking, run `git config user.name` and capture the output as `{git_name}`.
+Run `git config user.name` and capture the output as `{git_name}`.
 
 Output the following block **verbatim** (substituting `{git_name}`), then **stop and wait** for the user to reply:
 
@@ -36,13 +42,34 @@ After the user replies:
 - If `git config user.name` is also empty, fall back to the output of `git config user.email`, stripping the `@...` domain part.
 - Sanitize the final code: lowercase, replace spaces with `-`, keep only `[a-z0-9_-]`.
 
-### Step 2 — Receive member code, ask for source directories
+### Step 2 — Ask for project goal (founder mode only)
 
-After the member code is determined, continue. Output the following block **verbatim**, then **stop and wait**:
+**Only if `{is_founder} = true`（.phoenix/ 不存在）**, output the following block **verbatim**, then **stop and wait**:
 
 ---
 
-**【PhoenixTeam init – 第二步】**
+**【PhoenixTeam init – 第二步：设定项目目标】**
+
+您是本项目第一个初始化 PhoenixTeam 的人。请简要描述这次协作的**需求目标 / 任务使命**（1-3 句话）。
+这将写入 THESIS.md 作为 North Star，所有后续协作者都会以此为对齐基准。
+
+示例：
+- "重构 NECallKit 的呼叫流程，统一 iOS/Android 端的信令时序"
+- "设计 PhoenixTeam 的 MVP 产品方案，3 个月内上线"
+
+---
+
+Save the user's reply as `{project_goal}`.
+
+**If `{is_founder} = false`（join 模式）**, skip this step. The existing THESIS.md already contains the project goal.
+
+### Step 3 — Ask for source directories
+
+Output the following block **verbatim**, then **stop and wait**:
+
+---
+
+**【PhoenixTeam init – {第二步 if join / 第三步 if founder}：指定文档目录】**
 
 请提供您本地设计文档所在目录（可以是 1 个或多个目录，用逗号分隔）。
 示例：`./design`、`./docs/alice-proposal`、`./superpowers-output`
@@ -51,16 +78,32 @@ After the member code is determined, continue. Output the following block **verb
 
 ---
 
-### Step 3 — Execute initialization
+### Step 4 — Show existing THESIS (join mode only)
 
-After the user replies with directories:
+**Only if `{is_founder} = false`**, read `.phoenix/THESIS.md` and display:
+
+---
+
+**【项目目标确认】**
+
+当前项目 North Star（由 {founder_code} 设定）：
+
+> {THESIS.md 中的 North Star 内容}
+
+请确认您已了解项目目标。您的文档将以此为对齐基准。
+
+---
+
+(This is informational — no need to wait for confirmation, proceed immediately.)
+
+### Step 5 — Execute initialization
 
 1. Run `git status` and display the result.
 2. Create `.phoenix/` directory if it doesn't exist.
 3. Create/update `.phoenix/COLLABORATORS.md` with:
    - Current user's member code
    - Source directory → `.phoenix/design/{code}/` mapping
-   - Known collaborators list (initially just the current user)
+   - Known collaborators list (append if joining)
    - Format:
      ```markdown
      # PhoenixTeam Collaborators
@@ -77,10 +120,16 @@ After the user replies with directories:
    - Keep original filenames
    - Prepend `<!-- Phoenix Normalized Document -->` header to each file
    - Extract title and key decision points from design proposals
-5. Create core files if they don't exist:
-   - `.phoenix/THESIS.md` — Project design constitution (extract North Star from source docs if possible, otherwise leave with a placeholder)
-   - `.phoenix/RULES.md` — Code conventions (initial template)
-   - `.phoenix/SIGNALS.md` — Runtime status (initial template with empty blockers section)
-6. Run `git add .phoenix/` and commit with message: `"[PhoenixTeam] init - {code} 规范化设计文档"`
+5. Create/update core files:
+   - `.phoenix/THESIS.md`:
+     - **Founder mode**: Write `{project_goal}` as the North Star section
+     - **Join mode**: Keep existing content, do not overwrite
+   - `.phoenix/RULES.md` — Code conventions (create if not exists)
+   - `.phoenix/SIGNALS.md` — Runtime status (create if not exists)
+6. Run `git add .phoenix/` and commit:
+   - Founder: `"[PhoenixTeam] init - {code} 创建项目并规范化设计文档"`
+   - Join: `"[PhoenixTeam] init - {code} 加入协作并规范化设计文档"`
 7. **Automatically trigger `/phoenix-parse`** (execute the parse skill inline).
-8. Output: `"初始化完成！您的身份已记录为 {code}，文档已规范化到 .phoenix/design/{code}/，Git diff 基线已建立。"`
+8. Output:
+   - Founder: `"初始化完成！您是本项目的发起者。项目目标已写入 THESIS.md，文档已规范化到 .phoenix/design/{code}/，Git diff 基线已建立。"`
+   - Join: `"初始化完成！您已加入协作。身份已记录为 {code}，文档已规范化到 .phoenix/design/{code}/。项目目标请参阅 THESIS.md。"`
