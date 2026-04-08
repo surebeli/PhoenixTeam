@@ -15,13 +15,13 @@ git clone https://github.com/surebeli/PhoenixTeam.git /tmp/phoenix-team
 
 # 安装到当前项目
 mkdir -p .claude/commands
-for skill in /tmp/phoenix-team/skills/*/SKILL.md; do
+for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ".claude/commands/$(basename $(dirname $skill)).md"
 done
 
 # 或全局安装（对所有项目生效）
 mkdir -p ~/.claude/commands
-for skill in /tmp/phoenix-team/skills/*/SKILL.md; do
+for skill in /tmp/phoenix-team/plugin/skills/*/SKILL.md; do
   cp "$skill" ~/.claude/commands/$(basename $(dirname $skill)).md
 done
 ```
