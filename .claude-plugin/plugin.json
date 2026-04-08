@@ -1,0 +1,10 @@
+{
+  "name": "phoenix-collab",
+  "description": "Distributed AI team document collaboration plugin — pure prompt, zero code. Manage design docs across multiple AI agents with Git-native diff awareness and collaborator identity tracking.",
+  "version": "1.3.0",
+  "author": {
+    "name": "PhoenixTeam"
+  },
+  "repository": "https://github.com/anthropics/phoenix-collab",
+  "license": "MIT"
+}
