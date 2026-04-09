@@ -44,7 +44,7 @@ git clone https://github.com/surebeli/PhoenixTeam.git ~/.codex/skills/phoenix-te
 将 `PHOENIXTEAM.md` 复制到项目根目录，在 AI 工具中输入：
 
 ```
-你现在是 PhoenixTeam Plugin v1.4，完全遵循 ./PHOENIXTEAM.md 中的所有规则。
+你现在是 PhoenixTeam Plugin，完全遵循 ./PHOENIXTEAM.md 中的所有规则。
 Skill: init
 ```
 
@@ -53,14 +53,14 @@ Skill: init
 ```bash
 /phoenix-init      # 初始化（首人设定项目目标，后续者确认并加入）
 /phoenix-whoami    # 查看/绑定本机身份（换机器或多机登录时使用）
-/phoenix-status    # 查看全局状态与一致性评分
+/phoenix-status    # 查看全局状态、分歧面板与一致性评分
 /phoenix-pull      # 拉取远程变更 + 自动 diff 解读
-/phoenix-push      # 推送文档变更（强制 diff 检查）
+/phoenix-push      # 推送文档变更（diff 检查 + 分歧软拦截）
 /phoenix-parse     # 重新解析文档、更新索引
 /phoenix-suggest   # 获取基于 diff 的协作建议
 /phoenix-diff      # 查看精确变更（按协作者分组）
-/phoenix-review    # 多人分歧分析（只读）
-/phoenix-align     # 分歧收敛（交互式决策）
+/phoenix-review    # 分歧分析 → 写入 DIVERGENCES.md（带提交锚点）
+/phoenix-align     # 分歧收敛（从 DIVERGENCES.md 读取，交互式决策）
 /phoenix-archive   # 归档并冻结提案
 ```
 
@@ -71,13 +71,13 @@ Skill: init
 | `/phoenix-init` | 初始化（首人设目标 → 后续者确认加入） | 交互式 |
 | `/phoenix-whoami` | 查看/绑定本机身份（换机器/多机时用） | 交互式 |
 | `/phoenix-pull` | 拉取 + 解析 + diff 摘要 | — |
-| `/phoenix-push` | 推送（含强制 diff 检查） | 可选 commit message |
+| `/phoenix-push` | 推送（diff 检查 + 未解决分歧软拦截） | 可选 commit message |
 | `/phoenix-parse` | 扫描文档、生成 INDEX.md | — |
-| `/phoenix-status` | 全局状态 + 一致性评分 (0-100) | — |
+| `/phoenix-status` | 全局状态 + 分歧面板 + 一致性评分 (0-100) | — |
 | `/phoenix-suggest` | 基于 diff 的协作建议 | 可选问题 |
 | `/phoenix-diff` | diff 详情（按协作者分组） | `--last` / `--commit=<hash>` / `--against=origin/main` |
-| `/phoenix-review` | 分歧分析（对比多人文档 vs THESIS） | 可选聚焦主题 |
-| `/phoenix-align` | 分歧收敛（提案对比 → 决策 → 更新 THESIS） | 分歧主题 或 `all` |
+| `/phoenix-review` | 分歧分析，结果写入 DIVERGENCES.md（含提交锚点，重复运行只分析有新提交的协作者） | 可选聚焦主题 |
+| `/phoenix-align` | 双方确认的分歧收敛：提议者提交方案（proposed），对方确认后才生效（resolved） | `D-001` / 关键词 / `all` |
 | `/phoenix-archive` | 提案归档 + 决策冻结 | `<代号/文件名>` |
 
 ## 协作流程
@@ -97,14 +97,89 @@ Alice (Claude Code)                    Bob (Codex CLI)
        └──────── 发现分歧 ────────────────────┘
                     │
             /phoenix-review
-            "alice 主张 REST，bob 主张 GraphQL,
-             与 THESIS 对比分析..."
+            分析文档 vs THESIS → 生成 D-001, D-002
+            写入 DIVERGENCES.md + 提交锚点
                     │
-            /phoenix-align
-            对比方案 → 人类决策 → 更新 THESIS
+  ┌─────────────────┴──────────────────┐
+  │                                    │
+  Alice: /phoenix-align D-001          │
+  选择方案 → D-001 变为 proposed 🟡    │
+  ⚠️ THESIS 暂不更新                   │
+  /phoenix-push                        │
+  │                                    │
+  │                              Bob: /phoenix-pull
+  │                              🟡 "D-001 等待您确认"
+  │                              Bob: /phoenix-align D-001
+  │                              ✅ 同意 → resolved，更新 THESIS
+  │                              /phoenix-push
+  │                                    │
+  └──────── 双方一致，分歧关闭 ────────┘
                     │
-            /phoenix-push（同步对齐结果）
+            /phoenix-push（无 open/proposed，直接推送）
 ```
+
+## 分歧处理机制
+
+### 三种分歧状态
+
+| 状态 | 含义 | 谁可以操作 |
+|------|------|------------|
+| `open` 🔴 | 未解决 | 任意一方可以提议 |
+| `proposed` 🟡 | 一方已提议，等待对方确认 | 对方确认/拒绝/修改；提议者可撤回 |
+| `resolved` ✅ | 双方达成一致 | 不可重新打开 |
+
+### DIVERGENCES.md — 分歧注册表
+
+`review` 写入，`align` 读写，`push`/`status` 读取：
+
+```markdown
+## Open
+
+### D-001: API 风格选择
+状态: open 🔴 | 涉及方: alice vs bob | 优先级: 阻塞性
+
+## Proposed
+
+### D-002: 部署策略
+状态: proposed 🟡 | 提议者: alice | 等待 bob 确认
+提议决策: 采用 Kubernetes（bob 方案）| 提议理由: ...
+
+## Resolved
+
+### D-003: 数据模型 ✅
+状态: resolved | 提议者: alice | 确认者: bob
+决策: 采用 NoSQL | 解决于: 2026-04-09
+```
+
+### Propose → Approve 双方确认
+
+`align` 根据分歧状态自动切换行为：
+
+- **分歧为 open** → 展示对比表 + AI 推荐，用户选择后标记为 `proposed`，THESIS **暂不更新**
+- **分歧为 proposed，等待我确认** → 展示提议者的方案和理由，可以：
+  - ✅ 同意 → `resolved`，此时更新 THESIS Decision Log
+  - ❌ 拒绝（附理由）→ 恢复为 `open`
+  - 🔄 修改后反向提议 → 仍为 `proposed`，但提议者变为自己
+- **分歧为 proposed，我是提议者** → 提示等待对方，可选撤回
+
+### review 提交锚点去重
+
+`last-review.json` 记录各协作者上次分析时的 commit hash：
+
+- 有新提交 → 重新分析
+- 无新提交 → 跳过
+- `resolved` / `proposed` → 不干预
+
+### pull 自动提醒
+
+拉取后检测有等待自己确认的 `proposed` 分歧，主动提醒运行 `align`。
+
+### push 分歧软拦截
+
+推送前区分提示：
+- 🟡 有等待我确认的提议 → 建议先确认
+- 🔴 有未解决分歧 → 提示并等待确认
+- ⏳ 等待对方确认 → 告知推送后对方会收到提醒
 
 ## .phoenix/ 目录结构
 
@@ -113,10 +188,13 @@ Alice (Claude Code)                    Bob (Codex CLI)
 ```
 .phoenix/
 ├── COLLABORATORS.md    # 协作者身份映射
-├── THESIS.md           # 项目设计宪法（North Star）
+├── THESIS.md           # 项目设计宪法（North Star）+ Decision Log
 ├── RULES.md            # 代码规范
 ├── SIGNALS.md          # 运行时状态与阻塞项
 ├── INDEX.md            # 自动生成的文档索引
+├── DIVERGENCES.md      # 分歧注册表（D-001…），review 写入，align/push/status 读取
+├── last-parse.json     # parse 缓存（文件哈希）
+├── last-review.json    # review 提交锚点（各协作者最后分析的 commit hash）
 ├── design/
 │   ├── alice/          # 协作者 alice 的规范化文档
 │   ├── bob/
@@ -133,16 +211,17 @@ PhoenixTeam/
 │   └── plugin.json               # Claude Code 插件定义
 ├── .codex-plugin/plugin.json     # Codex CLI 插件清单
 ├── plugin/                       # 插件本体
-│   ├── skills/                   # 10 个 Skill（两平台共用）
+│   ├── skills/                   # 11 个 Skill（两平台共用）
 │   │   ├── phoenix-init/         # 初始化（首人设目标）
+│   │   ├── phoenix-whoami/       # 身份查看/绑定（多机支持）
 │   │   ├── phoenix-pull/         # 拉取 + diff
-│   │   ├── phoenix-push/         # 推送（diff 检查）
+│   │   ├── phoenix-push/         # 推送（diff 检查 + 分歧拦截）
 │   │   ├── phoenix-parse/        # 文档索引
-│   │   ├── phoenix-status/       # 状态概览
+│   │   ├── phoenix-status/       # 状态概览 + 分歧面板
 │   │   ├── phoenix-suggest/      # 协作建议
 │   │   ├── phoenix-diff/         # diff 详情
-│   │   ├── phoenix-review/       # 分歧分析
-│   │   ├── phoenix-align/        # 分歧收敛
+│   │   ├── phoenix-review/       # 分歧分析 → DIVERGENCES.md
+│   │   ├── phoenix-align/        # 分歧收敛（读 DIVERGENCES.md）
 │   │   └── phoenix-archive/      # 提案归档
 │   ├── CLAUDE.md                 # 共享上下文（Claude Code）
 │   └── AGENTS.md                 # 共享上下文（Codex CLI）
