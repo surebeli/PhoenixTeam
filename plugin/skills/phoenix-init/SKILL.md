@@ -79,9 +79,9 @@ Output the following block **verbatim**, then **stop and wait**:
 
 ---
 
-### Step 4 — Show existing THESIS (join mode only)
+### Step 4 — Show existing THESIS and divergence state (join mode only)
 
-**Only if `{is_founder} = false`**, read `.phoenix/THESIS.md` and display:
+**Only if `{is_founder} = false`**, read `.phoenix/THESIS.md` and `.phoenix/DIVERGENCES.md` (if exists), then display:
 
 ---
 
@@ -91,7 +91,16 @@ Output the following block **verbatim**, then **stop and wait**:
 
 > {THESIS.md 中的 North Star 内容}
 
-请确认您已了解项目目标。您的文档将以此为对齐基准。
+**【当前分歧状态】**
+
+{If DIVERGENCES.md exists:}
+- 🔴 未解决: {count} | 🟡 等待确认: {count} | ✅ 已解决: {count}
+{List open/proposed items if any}
+
+{If DIVERGENCES.md does not exist:}
+_（尚无分歧记录）_
+
+请确认您已了解项目目标和当前协作状态。您的文档将以此为对齐基准。
 
 ---
 

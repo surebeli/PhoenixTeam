@@ -1,6 +1,6 @@
 ---
 name: phoenix-archive
-description: "Archive a design proposal by moving it from .phoenix/design/ to .phoenix/archive/{timestamp}/, updating THESIS.md decision log, and committing with diff. Use this to freeze a decision."
+description: "Archive a design proposal by moving it from .phoenix/design/ to .phoenix/archive/{timestamp}/. Checks DIVERGENCES.md for references — warns if the file is part of an open/proposed divergence. Updates THESIS.md decision log and commits with diff."
 user-invocable: true
 argument-hint: "<member-code/filename.md>"
 ---
@@ -15,16 +15,47 @@ Archive (freeze) a design proposal and record the decision.
 
 ## Execution Steps
 
-1. Read `.phoenix/COLLABORATORS.md` to determine current identity.
+1. Read `git config phoenix.member-code` to determine current identity. Apply identity guard.
 2. Run `git status` and display the result.
 3. Validate that `.phoenix/design/$ARGUMENTS` exists. If not, list available files and ask the user to specify.
-4. Create the archive directory: `.phoenix/archive/{YYYYMMDD}/`
-5. Move the file: `.phoenix/design/$ARGUMENTS` → `.phoenix/archive/{YYYYMMDD}/{filename}`
-6. Update `.phoenix/THESIS.md`:
+
+### Step 4 — Divergence reference check
+
+1. Read `.phoenix/DIVERGENCES.md` if it exists.
+2. Search for references to the file being archived (match against `design/{member-code}/{filename}` in divergence entries).
+3. If the file is referenced in an **`open` or `proposed`** divergence:
+
+   ```
+   ⚠️ 此文件涉及以下未解决分歧:
+
+   - D-{N}: {title} ({status}) — {parties}
+
+   归档后该分歧可能需要重新评估。
+   是否继续归档？(yes / 取消)
+   ```
+
+   **Stop and wait for confirmation.**
+
+   - If user confirms → proceed to Step 5.
+   - If user cancels → stop and suggest running align first.
+
+4. If the file is referenced in a **`resolved`** divergence → no warning, proceed (the decision was already made).
+5. If no reference in DIVERGENCES.md → proceed silently.
+
+### Step 5 — Execute archive
+
+1. Create the archive directory: `.phoenix/archive/{YYYYMMDD}/`
+2. Move the file: `.phoenix/design/$ARGUMENTS` → `.phoenix/archive/{YYYYMMDD}/{filename}`
+3. Update `.phoenix/THESIS.md`:
    - Add a decision log entry:
      ```markdown
      ## Decision Log
      - [{date}] Archived `{member-code}/{filename}` — {reason/summary extracted from the proposal}
      ```
-7. Run `git add .phoenix/` and commit with message: `"[PhoenixTeam] archive - {code}/{filename} 决策冻结"`
-8. Output: archive result + new diff (preserving member code attribution).
+4. If the file was part of an open/proposed divergence and user confirmed:
+   - Add a note to the divergence entry in DIVERGENCES.md:
+     ```
+     **注意**: 涉及文件 `{path}` 已被归档 ({date})，本分歧可能需要重新 review。
+     ```
+5. Run `git add .phoenix/` and commit: `"[PhoenixTeam] archive - {code}/{filename} 决策冻结"`
+6. Output: archive result + new diff (preserving member code attribution).

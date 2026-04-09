@@ -8,7 +8,7 @@
       "name": "p-team",
       "source": "./plugin",
       "description": "Distributed AI team document collaboration — pure prompt, zero code",
-      "version": "1.7.0"
+      "version": "1.8.0"
     }
   ]
 }
