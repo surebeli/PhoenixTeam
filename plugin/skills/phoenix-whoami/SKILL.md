@@ -1,5 +1,5 @@
 ---
-name: whoami
+name: phoenix-whoami
 description: "Show or set your PhoenixTeam identity on this machine. Use this when switching machines, cloning on a new device, or logging in from multiple machines. Reads existing collaborators from COLLABORATORS.md and lets you bind to your existing member code."
 user-invocable: true
 ---

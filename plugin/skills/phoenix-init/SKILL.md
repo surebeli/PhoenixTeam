@@ -1,5 +1,5 @@
 ---
-name: init
+name: phoenix-init
 description: "Initialize PhoenixTeam: set up collaborator identity, normalize design documents into .phoenix/, create core files, and establish Git diff baseline. Use this when starting PhoenixTeam for the first time or onboarding a new collaborator."
 user-invocable: true
 argument-hint: "[--branch=phoenix-docs | --submodule]"

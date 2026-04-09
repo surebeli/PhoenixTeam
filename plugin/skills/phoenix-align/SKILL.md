@@ -1,5 +1,5 @@
 ---
-name: align
+name: phoenix-align
 description: "Resolve divergence between collaborators. Interactive skill: shows conflicting proposals side-by-side, proposes a merged resolution, asks for human approval, then updates THESIS.md and archives superseded proposals."
 user-invocable: true
 argument-hint: "<divergence topic or 'all'>"

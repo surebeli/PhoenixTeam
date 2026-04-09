@@ -1,5 +1,5 @@
 ---
-name: review
+name: phoenix-review
 description: "Analyze divergence between collaborators' documents. Compares all members' proposals against THESIS (North Star), identifies conflicts, overlaps, and gaps, and produces a structured divergence report. Read-only — does not modify any files."
 user-invocable: true
 argument-hint: "[topic or specific file to focus on]"

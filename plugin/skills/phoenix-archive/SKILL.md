@@ -1,5 +1,5 @@
 ---
-name: archive
+name: phoenix-archive
 description: "Archive a design proposal by moving it from .phoenix/design/ to .phoenix/archive/{timestamp}/, updating THESIS.md decision log, and committing with diff. Use this to freeze a decision."
 user-invocable: true
 argument-hint: "<member-code/filename.md>"

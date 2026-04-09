@@ -30,7 +30,7 @@ done
 
 ```bash
 /plugin marketplace add surebeli/PhoenixTeam
-/plugin install phoenix-team@PhoenixTeam
+/plugin install p-team@PhoenixTeam
 ```
 
 ### Codex CLI

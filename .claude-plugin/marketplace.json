@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "phoenix-team",
+      "name": "p-team",
       "source": "./plugin",
       "description": "Distributed AI team document collaboration — pure prompt, zero code",
-      "version": "1.5.0"
+      "version": "1.6.0"
     }
   ]
 }

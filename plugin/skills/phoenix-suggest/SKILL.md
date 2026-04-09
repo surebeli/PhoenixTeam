@@ -1,5 +1,5 @@
 ---
-name: suggest
+name: phoenix-suggest
 description: "Generate 3 prioritized collaboration suggestions based on recent git diffs, THESIS alignment, and cross-collaborator document analysis. Each suggestion cites specific collaborator diffs."
 user-invocable: true
 argument-hint: "[specific question or topic]"

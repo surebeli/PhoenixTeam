@@ -1,5 +1,5 @@
 ---
-name: diff
+name: phoenix-diff
 description: "View structured git diff for .phoenix/ documents grouped by collaborator. Supports --last, --commit=abc123, --against=origin/main for flexible diff ranges. Shows collaboration impact analysis."
 user-invocable: true
 argument-hint: "[--last | --commit=abc123 | --against=origin/main]"

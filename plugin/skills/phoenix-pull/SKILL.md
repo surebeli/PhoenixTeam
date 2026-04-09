@@ -1,5 +1,5 @@
 ---
-name: pull
+name: phoenix-pull
 description: "Pull remote changes and auto-analyze diffs by collaborator. Fetches latest from remote, shows what each team member changed, and triggers a parse to update INDEX.md."
 user-invocable: true
 ---
