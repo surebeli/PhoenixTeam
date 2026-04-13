@@ -1,0 +1,43 @@
+plugin/skills/phoenix-pull/SKILL.md
+  e31ba3d4e6b8fa74 19-45
+plugin/skills/phoenix-diff/SKILL.md
+  e31ba3d4e6b8fa74 15,23-29
+plugin/skills/phoenix-review/SKILL.md
+  e31ba3d4e6b8fa74 72-74
+README.md
+  e31ba3d4e6b8fa74 53,55-112,115-152
+.claude-plugin/marketplace.json
+  e31ba3d4e6b8fa74 11
+plugin/skills/phoenix-suggest/SKILL.md
+  e31ba3d4e6b8fa74 19-24
+plugin/skills/phoenix-parse/SKILL.md
+  e31ba3d4e6b8fa74 78,80-89,113
+plugin/skills/phoenix-push/SKILL.md
+  e31ba3d4e6b8fa74 89,91-97,99-115
+README.zh-CN.md
+  e31ba3d4e6b8fa74 53,55-112,115-152
+plugin/.claude-plugin/plugin.json
+  e31ba3d4e6b8fa74 4
+.codex-plugin/plugin.json
+  e31ba3d4e6b8fa74 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "1f43335b5dc4b3195fa8161660e31382dc705658",
+  "prompts": {
+    "e31ba3d4e6b8fa74": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a20e4b7-42d9-49fb-a051-5091ab9f9b11",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 283,
+      "total_deletions": 57,
+      "accepted_lines": 283,
+      "overriden_lines": 0
+    }
+  }
+}
