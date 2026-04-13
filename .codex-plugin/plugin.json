@@ -1,6 +1,6 @@
 {
   "name": "p-team",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Distributed AI team document collaboration plugin — pure prompt, zero code. Manage design docs across multiple AI agents with Git-native diff awareness and collaborator identity tracking.",
   "skills": "../skills/",
   "interface": {

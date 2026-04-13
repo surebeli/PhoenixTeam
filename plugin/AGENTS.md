@@ -17,13 +17,28 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 - **Diff gate on push**: Run `git diff -- .phoenix/` before every push and show the summary. Also check DIVERGENCES.md for open/proposed items and warn accordingly.
 - **Directory depth limit**: `.phoenix/design/` sub-structure is at most 2 levels deep.
 - **Two repo modes** (set during init): Mode A (dedicated branch `phoenix-docs`, default) or Mode B (git submodule).
-- **Branch guard** (enforced on every skill except `phoenix-init`): After the identity guard, run `git branch --show-current` → `{current_branch}`, then run `git config phoenix.main-branch` → `{main_branch}`. If they differ, **stop immediately** and output:
-  ```
-  ❌ 当前分支 '{current_branch}' 不是 PhoenixTeam 主分支 '{main_branch}'。
-  PhoenixTeam 操作只能在主分支上执行，以防止 .phoenix/ 状态随分支分叉。
-  请切换到主分支后再运行：git checkout {main_branch}
-  ```
-  `phoenix-init` is exempt — it is the skill that establishes the main branch. If `git config phoenix.main-branch` is empty (not yet initialized), skip the check and proceed normally.
+- **Branch guard** (enforced on every skill except `phoenix-init`): After the identity guard, run `git branch --show-current` → `{current_branch}`, then run `git config phoenix.main-branch` → `{main_branch}`. Handle the result as follows:
+  - **`{main_branch}` is set and matches `{current_branch}`** → pass, proceed normally.
+  - **`{main_branch}` is set and differs from `{current_branch}`** → stop immediately and output:
+    ```
+    ❌ 当前分支 '{current_branch}' 不是 PhoenixTeam 主分支 '{main_branch}'。
+    PhoenixTeam 操作只能在主分支上执行，以防止 .phoenix/ 状态随分支分叉。
+    请切换到主分支后再运行：git checkout {main_branch}
+    ```
+  - **`{main_branch}` is empty AND `.phoenix/` does NOT exist** → first-time init, skip the check and proceed (init will establish the binding).
+  - **`{main_branch}` is empty AND `.phoenix/` EXISTS** → user cloned the repo but never ran `phoenix-init`. Auto-recover:
+    1. Read `Main Branch` field from `.phoenix/COLLABORATORS.md`.
+    2. If found → run `git config --local phoenix.main-branch {main_branch}` silently, then output:
+       ```
+       ℹ️ 已自动绑定主分支：{main_branch}（从 COLLABORATORS.md 读取）
+       ```
+       Then apply the branch check with the recovered value (block if current branch differs).
+    3. If `COLLABORATORS.md` has no `Main Branch` field → output:
+       ```
+       ⚠️ 本机未绑定 PhoenixTeam 主分支，且 COLLABORATORS.md 中无记录。
+       请运行 `p-team:phoenix-init` 重新完成初始化以恢复分支绑定。
+       ```
+       Stop. Do not proceed.
 
 ## .phoenix/ Directory Layout
 

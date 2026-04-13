@@ -66,7 +66,17 @@ Run:
 git config --local phoenix.member-code {code}
 ```
 
-### Step 3 — Confirm
+### Step 3 — Also bind main branch if missing
+
+After binding member-code, check `git config phoenix.main-branch`:
+
+- **Already set** → skip, nothing to do.
+- **Empty** → attempt auto-recovery:
+  1. Read `Main Branch` field from `.phoenix/COLLABORATORS.md`.
+  2. If found → run `git config --local phoenix.main-branch {main_branch}` and note it in the confirmation output.
+  3. If not found → note that main branch is unbound; suggest running `/phoenix-init`.
+
+### Step 4 — Confirm
 
 Output:
 
@@ -77,6 +87,7 @@ Output:
 本机已绑定为：`{code}`
 
 - 来源：`.git/config`（仅本机有效，不进 git 仓库）
+- 主分支：`{main_branch}`（已绑定） / ⚠️ 未绑定，请运行 `/phoenix-init`
 - 后续所有 skill（pull / push / review / align 等）将以此身份执行
 
 建议下一步：`/phoenix-status` 查看当前工作区状态。
