@@ -50,22 +50,106 @@ You are now the PhoenixTeam Plugin. Follow all rules in ./PHOENIXTEAM.md strictl
 Skill: init
 ```
 
-## 使用方法
+## 快速上手
 
-```bash
-/phoenix-init      # 初始化（创始人设定目标；其他人确认并加入）
-/phoenix-whoami    # 查看/绑定机器身份（切换机器时使用）
-/phoenix-status    # 查看全局状态、分歧面板和一致性评分
-/phoenix-pull      # 拉取远程变更 + 自动 diff 分析
-/phoenix-push      # 推送文档变更（diff 检查 + 分歧软门控）
-/phoenix-parse     # 重新解析文档，更新索引
-/phoenix-suggest   # 获取基于 diff 的协作建议
-/phoenix-diff      # 查看精确变更（按协作者分组）
-/phoenix-review    # 分歧分析 → 写入 DIVERGENCES.md（含提交锚点）
-/phoenix-align     # 分歧收敛（提议 → 确认两阶段）
-/phoenix-archive   # 归档并冻结提案
-/phoenix-update    # 同步源文档变更（增量哈希检测 + 分歧影响评估）
+### 极简记忆法
+
 ```
+日常三板斧:     pull → (update) → push
+出现分歧时:     review → align
+不确定时:       status 或 suggest
+```
+
+### 核心工作流
+
+```
+                        ┌─────────────────────────────────┐
+                        │        首次使用（一次性）          │
+                        │        /phoenix-init            │
+                        │   创建 .phoenix/、绑定身份、       │
+                        │   写入 THESIS、归一化文档          │
+                        └──────────────┬──────────────────┘
+                                       │
+                  ┌────────────────────────────────────────┐
+                  │            日常协作循环                  │
+                  │                                        │
+   ┌──────────────▼───────────────┐                        │
+   │  /phoenix-pull               │                        │
+   │  拉取远端 + 自动 parse        │                        │
+   └──────────────┬───────────────┘                        │
+                  │                                        │
+                  ▼                                        │
+        ┌─── 本地源文档有变更？                               │
+        │                                                  │
+       YES                  NO                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-update           │                             │
+   同步到 .phoenix/           │                             │
+   （自动触发 parse）          │                             │
+        │                    │                             │
+        └────────┬───────────┘                             │
+                 │                                         │
+                 ▼                                         │
+        ┌─── 多人提案存在分歧？                               │
+        │                                                  │
+       YES                  NO                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-review           │                             │
+   检测分歧 → DIVERGENCES.md  │                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-align            │                             │
+   Propose → Approve         │                             │
+        │                    │                             │
+        └────────┬───────────┘                             │
+                 │                                         │
+                 ▼                                         │
+          /phoenix-push                                    │
+          提交 + 推送到远端                                  │
+                 │                                         │
+                 └─────────────────────────────────────────┘
+```
+
+### 核心 Skill（7 个）
+
+| Skill | 职责 | 触发时机 |
+|-------|------|---------|
+| **init** | 创建工作区、绑定身份、设定 THESIS | 项目首次使用 / 新人加入 |
+| **pull** | 拉取远端 + 按协作者分组展示变更 | 开始工作前 |
+| **update** | 本地源文档 → `.phoenix/design/{me}/` | 源文档有修改后 |
+| **parse** | 扫描文档 → 生成 INDEX.md | **通常不需要手动调用**，被 pull/update/init 自动触发 |
+| **review** | 对比各方提案，生成 DIVERGENCES.md | 多人提案更新后，需要检测冲突时 |
+| **align** | 两阶段解决分歧：Propose → Approve | review 发现分歧后 |
+| **push** | diff 审查 + divergence 门禁 + 推送 | 准备分享变更时 |
+
+### 辅助 Skill（5 个）
+
+**`/phoenix-status`** — 全景仪表盘
+
+> 场景：早上开工、隔了几天没碰、想快速看看有没有 pending 的 approval。
+> 展示：身份、协作者、分歧面板（哪些等你审批）、最近 3 次变更、阻塞项、一致性评分 (0-100)。
+
+**`/phoenix-diff`** — 精确变更查看
+
+> 场景：需要看特定范围的 diff，而不是 pull/parse 自动给的摘要。
+> 参数：`--last`（本地未推送的变更）、`--commit=abc123`（某次提交）、`--against=origin/main`（本地相对远端的全部差异）。
+
+**`/phoenix-suggest`** — AI 协作建议
+
+> 场景：不确定下一步该做什么，让 AI 基于实际 diff 和分歧状态给建议。
+> 优先级：待你审批的 proposed > 待你更新源文档的 resolved > open blocking > diff 洞察。
+
+**`/phoenix-whoami`** — 身份绑定
+
+> 场景：换机器、新 clone、多设备协作。
+> 身份存在 `.git/config`（机器本地），换设备后需要重新绑定。
+
+**`/phoenix-archive`** — 冻结提案
+
+> 场景：某个设计提案已过时或在 align 后被取代。
+> 移动到 `.phoenix/archive/{日期}/`，自动检查是否关联未解决的分歧并警告。
 
 ## Skill 参考
 

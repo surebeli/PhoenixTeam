@@ -12,7 +12,7 @@ View precise document changes with collaborator attribution and divergence state
 ## Parameters
 
 - `$ARGUMENTS`: Optional diff range specifier:
-  - `--last` or no argument: `HEAD~1..HEAD -- .phoenix/`
+  - `--last` or no argument: Smart default (see Step 3)
   - `--commit=abc123`: `abc123~1..abc123 -- .phoenix/`
   - `--against=origin/main`: `origin/main..HEAD -- .phoenix/`
 
@@ -20,7 +20,13 @@ View precise document changes with collaborator attribution and divergence state
 
 1. Read `git config phoenix.member-code` to determine current identity. Apply identity guard.
 2. Read `.phoenix/COLLABORATORS.md` to determine collaborator directory mapping.
-3. Parse `$ARGUMENTS` to determine the git diff range. Default: `HEAD~1..HEAD -- .phoenix/`.
+3. Parse `$ARGUMENTS` to determine the git diff range:
+   - If `--commit` or `--against` specified → use that range directly.
+   - If `--last` or no argument → **smart default**:
+     1. Check `git log @{u}..HEAD --oneline -- .phoenix/` for unpushed .phoenix/ commits.
+     2. If unpushed commits exist → use `@{u}..HEAD -- .phoenix/` (all local changes not yet pushed — most useful default).
+     3. If no upstream or no unpushed commits → fallback to `HEAD~1..HEAD -- .phoenix/`.
+     4. Display which range was used: `📎 Diff range: {range}`.
 4. Run the corresponding `git diff` command.
 5. Output a **structured diff summary grouped by member code**:
    ```

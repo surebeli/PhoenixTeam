@@ -50,22 +50,106 @@ You are now the PhoenixTeam Plugin. Follow all rules in ./PHOENIXTEAM.md strictl
 Skill: init
 ```
 
-## Usage
+## Quick Start
 
-```bash
-/phoenix-init      # Initialize (founder sets goal; others confirm and join)
-/phoenix-whoami    # View/bind machine identity (use when switching machines)
-/phoenix-status    # View global status, divergence panel, and consistency score
-/phoenix-pull      # Pull remote changes + auto diff analysis
-/phoenix-push      # Push document changes (diff check + divergence soft gate)
-/phoenix-parse     # Re-parse documents, update index
-/phoenix-suggest   # Get diff-based collaboration suggestions
-/phoenix-diff      # View precise changes (grouped by collaborator)
-/phoenix-review    # Divergence analysis → write DIVERGENCES.md (with commit anchors)
-/phoenix-align     # Divergence convergence (Propose → Approve two-phase)
-/phoenix-archive   # Archive and freeze a proposal
-/phoenix-update    # Sync source document changes (incremental hash detection + divergence impact)
+### TL;DR
+
 ```
+Daily workflow:    pull → (update) → push
+When diverging:    review → align
+Not sure:          status or suggest
+```
+
+### Core Workflow
+
+```
+                        ┌─────────────────────────────────┐
+                        │     First time (one-time)       │
+                        │        /phoenix-init            │
+                        │   Create .phoenix/, bind ID,    │
+                        │   set THESIS, normalize docs    │
+                        └──────────────┬──────────────────┘
+                                       │
+                  ┌────────────────────────────────────────┐
+                  │          Daily Collaboration Loop      │
+                  │                                        │
+   ┌──────────────▼───────────────┐                        │
+   │  /phoenix-pull               │                        │
+   │  Pull remote + auto parse    │                        │
+   └──────────────┬───────────────┘                        │
+                  │                                        │
+                  ▼                                        │
+        ┌─── Source docs changed locally?                  │
+        │                                                  │
+       YES                  NO                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-update           │                             │
+   Sync to .phoenix/         │                             │
+   (auto parse)              │                             │
+        │                    │                             │
+        └────────┬───────────┘                             │
+                 │                                         │
+                 ▼                                         │
+        ┌─── Divergences between collaborators?            │
+        │                                                  │
+       YES                  NO                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-review           │                             │
+   Detect → DIVERGENCES.md   │                             │
+        │                    │                             │
+        ▼                    │                             │
+   /phoenix-align            │                             │
+   Propose → Approve         │                             │
+        │                    │                             │
+        └────────┬───────────┘                             │
+                 │                                         │
+                 ▼                                         │
+          /phoenix-push                                    │
+          Commit + push to remote                          │
+                 │                                         │
+                 └─────────────────────────────────────────┘
+```
+
+### Core Skills (7)
+
+| Skill | Role | When to use |
+|-------|------|-------------|
+| **init** | Create workspace, bind identity, set THESIS | First time / new member joining |
+| **pull** | Pull remote + diff analysis by collaborator | Before starting work |
+| **update** | Sync local source docs → `.phoenix/design/{me}/` | After editing source documents |
+| **parse** | Scan docs → generate INDEX.md | *Usually auto-triggered* by pull/update/init |
+| **review** | Compare proposals → generate DIVERGENCES.md | After multiple collaborators updated proposals |
+| **align** | Two-phase resolution: Propose → Approve | After review finds divergences |
+| **push** | Diff review + divergence gate + push | Ready to share changes |
+
+### Auxiliary Skills (5)
+
+**`/phoenix-status`** — Full dashboard
+
+> When: Morning check-in, returning after a few days, quick overview of pending approvals.
+> Shows: identity, collaborator map, divergence panel, recent diffs, blockers, consistency score (0-100).
+
+**`/phoenix-diff`** — Precise diff inspection
+
+> When: Need to inspect a specific range beyond what pull/parse auto-shows.
+> Params: `--last` (unpushed changes), `--commit=abc123` (specific commit), `--against=origin/main` (all local vs remote).
+
+**`/phoenix-suggest`** — AI collaboration suggestions
+
+> When: Unsure what to do next; want AI to prioritize based on actual diffs and divergence state.
+> Ranks: pending approvals > pending action items > open blockers > diff insights.
+
+**`/phoenix-whoami`** — Identity binding
+
+> When: New clone, switching machines, multi-device collaboration.
+> Identity is stored in `.git/config` (machine-local), so each device needs binding.
+
+**`/phoenix-archive`** — Freeze a proposal
+
+> When: A design proposal is superseded or rejected after alignment.
+> Moves to `.phoenix/archive/{date}/`, warns if file is referenced in unresolved divergences.
 
 ## Skill Reference
 

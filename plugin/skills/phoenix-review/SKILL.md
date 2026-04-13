@@ -69,7 +69,9 @@ Structured divergence analysis across collaborators. Writes to `.phoenix/DIVERGE
 
 For each in-scope collaborator, read their documents under `.phoenix/design/{code}/`.
 
-Run `git diff HEAD~3..HEAD -- .phoenix/` for recent change context.
+Determine diff range for recent change context:
+- If `last-review.json` exists and contains `head_commit` → `git diff {head_commit}..HEAD -- .phoenix/` (anchored to last review)
+- Otherwise → `git diff HEAD~3..HEAD -- .phoenix/` (fallback)
 
 Perform the following checks:
 

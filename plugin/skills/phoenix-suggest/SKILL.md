@@ -16,7 +16,12 @@ Provide intelligent collaboration suggestions grounded in real changes and diver
 ## Execution Steps
 
 1. Read `git config phoenix.member-code` to determine current identity (`{me}`). Apply identity guard.
-2. Run `git diff HEAD~5..HEAD -- .phoenix/` to get recent changes, grouped by member code.
+2. Determine diff range for recent changes:
+   - Read `.phoenix/last-review.json` → if it contains `head_commit`, use `git diff {head_commit}..HEAD -- .phoenix/` (changes since last review — most meaningful anchor)
+   - Else read `.phoenix/last-parse.json` → if it contains `head_commit`, use `git diff {head_commit}..HEAD -- .phoenix/`
+   - Else fallback: `git diff HEAD~5..HEAD -- .phoenix/`
+   
+   Generate changes grouped by member code.
 3. Read the following files:
    - `.phoenix/THESIS.md` (North Star / design constitution)
    - `.phoenix/RULES.md` (code conventions)

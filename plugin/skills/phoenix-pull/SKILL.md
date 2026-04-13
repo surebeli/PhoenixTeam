@@ -16,8 +16,33 @@ None.
 
 1. Read `git config phoenix.member-code` to determine current identity (`{me}`). Apply identity guard.
 2. Run `git status` and display the result.
-3. Run `git pull --rebase` (or `git submodule update --remote` if in submodule mode).
-4. Run `git diff HEAD~1..HEAD -- .phoenix/` and generate a summary **grouped by member code**:
+3. **Pull with pre-pull anchor**:
+   1. Record the current HEAD hash: `git rev-parse HEAD` → `{before}`.
+   2. Run `git pull --rebase` (or `git submodule update --remote` if in submodule mode).
+   3. Record the new HEAD hash: `git rev-parse HEAD` → `{after}`.
+
+4. **Smart diff — resilient to prior `git pull`**:
+
+   Determine the correct diff range using this priority:
+
+   | Condition | Diff command | Explanation |
+   |-----------|-------------|-------------|
+   | `{before}` ≠ `{after}` | `git diff {before}..{after} -- .phoenix/` | Normal case: pull brought new commits |
+   | `{before}` = `{after}` (already up-to-date) | Use reflog fallback (see below) | User already ran `git pull` manually |
+
+   **Reflog fallback** (when pull is a no-op):
+   1. Search reflog for the most recent pull/rebase entry:
+      `git reflog --format='%H %gs' -n 20` and find the first line containing `pull` or `rebase (finish)`.
+   2. The hash on that line is the **post-pull** HEAD; the **next** reflog entry is the **pre-pull** HEAD.
+      Alternatively: `git reflog -n 20 --format='%H'` — find the index of the pull entry, take the hash at index+1 as `{pre_pull}`.
+   3. Run `git diff {pre_pull}..HEAD -- .phoenix/`.
+   4. If reflog search finds nothing (e.g., fresh clone with no prior pull), fall back to `git diff HEAD~1..HEAD -- .phoenix/` and note that the range is approximate.
+   5. Display which diff range was used so the user knows:
+      ```
+      📎 Diff range: {pre_pull_short}..{after_short} (recovered from reflog — prior git pull detected)
+      ```
+
+   Generate a summary **grouped by member code**:
    - Which collaborator's files changed
    - Files added/modified/deleted
    - Key content changes (line additions/deletions)

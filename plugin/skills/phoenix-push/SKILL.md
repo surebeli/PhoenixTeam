@@ -86,20 +86,33 @@ Continue pushing? (yes / resolve first)
 5. If user confirms or no actionable divergences → proceed to Step 3.
 6. If DIVERGENCES.md does not exist → proceed silently.
 
-### Step 4 — Diff review
+### Step 4 — Diff review (handles pre-committed changes)
 
-1. Run `git diff -- .phoenix/` and output a **【Diff 感知摘要】** grouped by member code:
-   - Changed files per collaborator
-   - Lines added/deleted with key content highlights
-2. If no changes and nothing staged → inform and skip push.
+1. Run `git diff -- .phoenix/` (unstaged) and `git diff --cached -- .phoenix/` (staged) to check for uncommitted changes.
+2. Run `git log @{u}..HEAD --oneline -- .phoenix/` (or `git log origin/{branch}..HEAD --oneline -- .phoenix/` if upstream not set) to check for **committed but unpushed** .phoenix/ changes.
+3. Combine both sources into a **【Diff 感知摘要】** grouped by member code:
+   - Uncommitted changes: files per collaborator, lines added/deleted
+   - Unpushed commits: list each commit with summary
+4. If no uncommitted changes AND no unpushed commits → inform and skip push.
+5. If only unpushed commits exist (user already committed manually) → skip to Step 5.3 (push only, no new commit needed).
 
-### Step 5 — Commit and push
+### Step 5 — Commit and push (staging isolation)
 
-1. Run `git add .phoenix/**/*.md`.
-2. Also add `.phoenix/DIVERGENCES.md`, `.phoenix/last-review.json` if changed.
-3. Commit with the provided message or default: `"[PhoenixTeam] {code} document update"`.
-4. Run `git push`.
-5. Output: push result + commit hash + this push's diff summary.
+1. **Staging area isolation**: Before staging, check `git diff --cached --name-only` for files outside `.phoenix/`. If any non-.phoenix/ files are already staged:
+   ```
+   ⚠️ Detected {N} staged file(s) outside .phoenix/:
+     {file list}
+   These will NOT be included in the PhoenixTeam commit.
+   ```
+   Run `git stash push --staged --message "phoenix-push: isolate non-phoenix staged files"` to temporarily save them, then restore after commit with `git stash pop`.
+   If no non-.phoenix/ files staged → proceed directly (no stash needed).
+
+2. Run `git add .phoenix/**/*.md`.
+3. Also add `.phoenix/DIVERGENCES.md`, `.phoenix/last-review.json`, `.phoenix/last-parse.json`, `.phoenix/last-sync.json` if changed.
+4. Commit with the provided message or default: `"[PhoenixTeam] {code} document update"`.
+   - **Skip commit if Step 4.5 determined only unpushed commits exist** (nothing new to commit).
+5. Run `git push`.
+6. Output: push result + commit hash(es) + this push's diff summary.
 
 ## Important
 
