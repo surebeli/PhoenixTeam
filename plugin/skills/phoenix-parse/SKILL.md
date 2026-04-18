@@ -1,7 +1,16 @@
 ---
 name: phoenix-parse
+short-description: "Scan documents and update INDEX.md"
 description: "Core skill: scan .phoenix/design/ documents, generate INDEX.md with directory tree, THESIS quote (not rewrite), divergence summary, and collaboration suggestions. Reads DIVERGENCES.md state. This is the intelligence layer of PhoenixTeam."
 user-invocable: true
+triggers: []
+callable-by: [phoenix-init, phoenix-pull, phoenix-update, phoenix-import]
+estimated-tokens:
+  context: 2500
+  skill: 1200
+  data-read: variable
+  output: 1000
+  total: ~4700
 ---
 
 # Skill: parse (Core)
@@ -22,7 +31,12 @@ None.
 4. Read `.phoenix/THESIS.md`, `.phoenix/SIGNALS.md`, `.phoenix/DIVERGENCES.md` (if exists).
 5. Run `git log --oneline -1 -- .phoenix/THESIS.md` to get THESIS last-modified info.
 
-### Step 6 — Generate INDEX.md
+### Step 6 — Generate INDEX.md (incremental when possible)
+
+**Incremental update strategy** (reduces token cost when called as sub-skill):
+- If `last-parse.json` exists and only specific collaborators have new commits → only regenerate the `## Document Tree` section for those collaborators. Preserve other sections (North Star, Divergences, Signals) if their source files are unchanged.
+- If THESIS.md, DIVERGENCES.md, or SIGNALS.md appear in the diff since `last-parse.json` → regenerate their corresponding INDEX.md sections.
+- If `last-parse.json` does not exist (first parse) → full generation of all sections.
 
 Write `.phoenix/INDEX.md` with the following structure:
 

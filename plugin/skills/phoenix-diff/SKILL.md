@@ -1,8 +1,17 @@
 ---
 name: phoenix-diff
+short-description: "View structured diff grouped by collaborator"
 description: "View structured git diff for .phoenix/ documents grouped by collaborator. Supports --last, --commit=abc123, --against=origin/main for flexible diff ranges. Highlights DIVERGENCES.md state transitions (open→proposed→resolved). Shows collaboration impact analysis."
 user-invocable: true
 argument-hint: "[--last | --commit=abc123 | --against=origin/main]"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 800
+  data-read: variable
+  output: 600
+  total: ~3900+
 ---
 
 # Skill: diff (Diff Awareness)

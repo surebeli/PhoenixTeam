@@ -1,8 +1,17 @@
 ---
 name: phoenix-update
+short-description: "Sync source documents into .phoenix/"
 description: "Sync updated source design documents into .phoenix/design/{code}/. Detects changes via file hash comparison (last-sync.json), handles new/modified/deleted files incrementally, checks divergence impact (open/proposed/resolved), and triggers parse after sync. Use this when your source design documents have changed since the last init or update."
 user-invocable: true
 argument-hint: "[--dry-run | --force]"
+triggers: [phoenix-parse]
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 2100
+  data-read: variable
+  output: 800
+  total: ~5400+ (plus ~4700 for auto-triggered parse)
 ---
 
 # Skill: update

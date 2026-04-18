@@ -1,8 +1,17 @@
 ---
 name: phoenix-suggest
+short-description: "AI-driven collaboration suggestions"
 description: "Generate 3 prioritized collaboration suggestions based on recent git diffs, THESIS alignment, divergence state (DIVERGENCES.md), and cross-collaborator document analysis. Divergence-aware: prioritizes open/proposed divergences in suggestions."
 user-invocable: true
 argument-hint: "[specific question or topic]"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 900
+  data-read: variable
+  output: 600
+  total: ~4000+
 ---
 
 # Skill: suggest (Diff-based, Divergence-aware)

@@ -1,8 +1,17 @@
 ---
 name: phoenix-push
+short-description: "Push changes with diff review and divergence gate"
 description: "Push .phoenix/ document changes to remote with mandatory diff review and divergence check. Warns distinctly for open vs proposed divergences before pushing. Shows what you're about to push grouped by collaborator."
 user-invocable: true
 argument-hint: "[commit message]"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 1300
+  data-read: 500
+  output: 600
+  total: ~4900
 ---
 
 # Skill: push

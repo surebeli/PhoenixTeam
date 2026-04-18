@@ -1,7 +1,16 @@
 ---
 name: phoenix-pull
+short-description: "Pull remote changes with diff analysis"
 description: "Pull remote changes and auto-analyze diffs by collaborator. Fetches latest from remote, shows what each team member changed, triggers a parse, and alerts if any proposed divergences are awaiting your approval."
 user-invocable: true
+triggers: [phoenix-parse]
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 1100
+  data-read: 500
+  output: 800
+  total: ~4900 (plus ~4700 for auto-triggered parse)
 ---
 
 # Skill: pull

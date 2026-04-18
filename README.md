@@ -52,121 +52,127 @@ Skill: init
 
 ## Quick Start
 
-### TL;DR
+### 1-minute Demo (Local)
+We provide a simulated scenario to let you experience PhoenixTeam's conflict detection and resolution in 1 minute.
 
-```
-Daily workflow:    pull → (update) → push
-When diverging:    review → align
-Not sure:          status or suggest
+```bash
+# 1. Clone and install skills
+git clone https://github.com/surebeli/PhoenixTeam.git
+cd PhoenixTeam
+
+# 2. Init and point to mock data
+# When asked for document directories, enter: ./tests/mock-scenarios/demo-1-conflict/alice, ./tests/mock-scenarios/demo-1-conflict/bob
+/phoenix-init
+
+# 3. Detect conflicts between alice (REST) and bob (GraphQL)
+/phoenix-review
+
+# 4. Resolve a conflict (e.g., D-001)
+/phoenix-align D-001
 ```
 
 ### Core Workflow
 
 ```
                         ┌─────────────────────────────────┐
-                        │     First time (one-time)       │
-                        │        /phoenix-init            │
-                        │   Create .phoenix/, bind ID,    │
-                        │   set THESIS, normalize docs    │
+                        │       First use (One-time)      │
+                        │       /phoenix-init             │
+                        │  Create .phoenix/, bind identity│
+                        │  Write THESIS, normalize docs   │
                         └──────────────┬──────────────────┘
                                        │
                   ┌────────────────────────────────────────┐
-                  │          Daily Collaboration Loop      │
+                  │           Daily Collaboration          │
                   │                                        │
-   ┌──────────────▼───────────────┐                        │
-   │  /phoenix-pull               │                        │
-   │  Pull remote + auto parse    │                        │
-   └──────────────┬───────────────┘                        │
-                  │                                        │
-                  ▼                                        │
-        ┌─── Source docs changed locally?                  │
-        │                                                  │
-       YES                  NO                             │
-        │                    │                             │
-        ▼                    │                             │
-   /phoenix-update           │                             │
-   Sync to .phoenix/         │                             │
-   (auto parse)              │                             │
-        │                    │                             │
-        └────────┬───────────┘                             │
-                 │                                         │
-                 ▼                                         │
-        ┌─── Divergences between collaborators?            │
-        │                                                  │
-       YES                  NO                             │
-        │                    │                             │
-        ▼                    │                             │
-   /phoenix-review           │                             │
-   Detect → DIVERGENCES.md   │                             │
-        │                    │                             │
-        ▼                    │                             │
-   /phoenix-align            │                             │
-   Propose → Approve         │                             │
-        │                    │                             │
-        └────────┬───────────┘                             │
-                 │                                         │
-                 ▼                                         │
-          /phoenix-push                                    │
-          Commit + push to remote                          │
-                 │                                         │
-                 └─────────────────────────────────────────┘
+   ┌──────────────▼───────────────┐                       │
+   │ /phoenix-pull               │                       │
+   │ Pull remote + auto-parse    │                       │
+   └──────────────┬───────────────┘                       │
+                  │                                       │
+   ┌──────────────▼───────────────┐                       │
+   │ Edit source docs             │                       │
+   │ (Human or AI edits code/doc) │                       │
+   └──────────────┬───────────────┘                       │
+                  │                                       │
+   ┌──────────────▼───────────────┐                       │
+   │ /phoenix-push               │                       │
+   │ Sync to .phoenix/ + push    │                       │
+   └──────────────┬───────────────┘                       │
+                  │                                       │
+                  └───────────────────┬───────────────────┘
+                                      │
+              ┌───────────────────────▼───────────────────────┐
+              │           Conflict Resolution Flow            │
+              │                                               │
+              │ 1. /phoenix-review (Find divergences)         │
+              │ 2. /phoenix-align (Propose/Approve decision)  │
+              │ 3. /phoenix-update (Verify implementation)    │
+              └───────────────────────────────────────────────┘
 ```
-
-### Core Skills (7)
-
-| Skill | Role | When to use |
-|-------|------|-------------|
-| **init** | Create workspace, bind identity, set THESIS | First time / new member joining |
-| **pull** | Pull remote + diff analysis by collaborator | Before starting work |
-| **update** | Sync local source docs → `.phoenix/design/{me}/` | After editing source documents |
-| **parse** | Scan docs → generate INDEX.md | *Usually auto-triggered* by pull/update/init |
-| **review** | Compare proposals → generate DIVERGENCES.md | After multiple collaborators updated proposals |
-| **align** | Two-phase resolution: Propose → Approve | After review finds divergences |
-| **push** | Diff review + divergence gate + push | Ready to share changes |
-
-### Auxiliary Skills (5)
-
-**`/phoenix-status`** — Full dashboard
-
-> When: Morning check-in, returning after a few days, quick overview of pending approvals.
-> Shows: identity, collaborator map, divergence panel, recent diffs, blockers, consistency score (0-100).
-
-**`/phoenix-diff`** — Precise diff inspection
-
-> When: Need to inspect a specific range beyond what pull/parse auto-shows.
-> Params: `--last` (unpushed changes), `--commit=abc123` (specific commit), `--against=origin/main` (all local vs remote).
-
-**`/phoenix-suggest`** — AI collaboration suggestions
-
-> When: Unsure what to do next; want AI to prioritize based on actual diffs and divergence state.
-> Ranks: pending approvals > pending action items > open blockers > diff insights.
-
-**`/phoenix-whoami`** — Identity binding
-
-> When: New clone, switching machines, multi-device collaboration.
-> Identity is stored in `.git/config` (machine-local), so each device needs binding.
-
-**`/phoenix-archive`** — Freeze a proposal
-
-> When: A design proposal is superseded or rejected after alignment.
-> Moves to `.phoenix/archive/{date}/`, warns if file is referenced in unresolved divergences.
 
 ## Skill Reference
 
-| Command | Function | Parameters |
-|---------|----------|------------|
-| `/phoenix-init` | Initialize (founder sets goal → others confirm and join) | Interactive |
-| `/phoenix-whoami` | View/bind machine identity (multi-machine support) | Interactive |
-| `/phoenix-pull` | Pull + parse + diff summary | — |
-| `/phoenix-push` | Push (diff check + unresolved divergence soft gate + source drift) | Optional commit message |
-| `/phoenix-parse` | Scan documents, generate INDEX.md | — |
-| `/phoenix-status` | Global status + divergence panel + consistency score (0-100) | — |
-| `/phoenix-suggest` | Diff-based collaboration suggestions | Optional question |
-| `/phoenix-diff` | Diff details (grouped by collaborator) | `--last` / `--commit=<hash>` / `--against=origin/main` |
-| `/phoenix-review` | Divergence analysis, results written to DIVERGENCES.md (with commit anchors; skips collaborators with no new commits) | Optional focus topic |
-| `/phoenix-align` | Two-phase divergence convergence: proposer submits (proposed), other confirms before taking effect (resolved) | `D-001` / keyword / `all` |
-| `/phoenix-archive` | Proposal archive + decision freeze (checks divergence references before archiving) | `<code/filename>` |
-| `/phoenix-update` | Source document incremental sync: hash-based change detection, divergence impact assessment, triggers parse | `--dry-run` / `--force` |
+| Command | Description |
+|---------|-------------|
+| `/phoenix-init` | Initialize or join a project |
+| `/phoenix-whoami` | Check or bind local identity |
+| `/phoenix-pull` | Pull remote changes and auto-parse |
+| `/phoenix-update` | Sync source documents to `.phoenix/` |
+| `/phoenix-push` | Push changes to remote after divergence check |
+| `/phoenix-review` | Analyze all docs for divergences vs THESIS |
+| `/phoenix-align` | Resolve divergences via Propose → Approve |
+| `/phoenix-status` | Comprehensive collaboration dashboard |
+| `/phoenix-suggest` | AI-driven suggestions based on diffs |
+| `/phoenix-diff` | View structured diff grouped by collaborator |
+| `/phoenix-parse` | Scan documents and update `INDEX.md` |
+| `/phoenix-archive` | Freeze and archive a design proposal |
+| `/phoenix-import` | Import external docs via MCP/HTTP |
+
+## Skill Dependency Graph
+
+```mermaid
+graph LR
+    subgraph Daily[Daily Workflow]
+        pull[pull]
+        update[update]
+        push[push]
+    end
+
+    subgraph Resolve[Review and Resolve]
+        review[review]
+        align[align]
+    end
+
+    subgraph Auto[Auto-triggered]
+        parse[parse]
+    end
+
+    subgraph Util[Utility]
+        init[init]
+        status[status]
+        suggest[suggest]
+        diff[diff]
+        whoami[whoami]
+        importSkill[import]
+    end
+
+    init -->|triggers| parse
+    pull -->|triggers| parse
+    update -->|triggers| parse
+    importSkill -->|triggers| parse
+
+    review -.->|feeds| align
+    align -.->|enables| push
+    status -.->|recommends| review
+    suggest -.->|recommends| align
+
+    style parse fill:#4CAF50,color:#fff
+    style align fill:#E55B3C,color:#fff
+    style review fill:#FF9800,color:#fff
+    style init fill:#2196F3,color:#fff
+```
+
+> **Legend**: Solid arrows = auto-triggers. Dotted arrows = workflow recommendations.
 
 ## Collaboration Flow
 
@@ -178,11 +184,11 @@ Alice (Claude Code)                    Bob (Codex CLI)
        │                                     │
  Edit .phoenix/design/alice/          Edit .phoenix/design/bob/
        │                                     │
- /phoenix-push ──────► Git ◄───────── /phoenix-push
+ /phoenix-push ──────→ Git ◄───────── /phoenix-push
        │                                     │
  /phoenix-pull                        /phoenix-pull
        │                                     │
-       └──────────── divergence found ───────┘
+       └──────────── divergence found ───────→
                           │
                   /phoenix-review
                   Analyze docs vs THESIS → generate D-001
@@ -195,35 +201,35 @@ Alice (Claude Code)                    Bob (Codex CLI)
   ⚠️ THESIS not updated yet                    │
   /phoenix-push                                │
   │                                            │
-  │                              Bob: /phoenix-pull
-  │                              🟡 "D-001 awaiting your confirmation"
-  │                              Bob: /phoenix-align D-001
-  │                              ✅ Agree → resolved
-  │                              Generate decisions/D-001.md
-  │                              Update THESIS Decision Log
-  │                              /phoenix-push
+  │                             Bob: /phoenix-pull
+  │                             🟡 "D-001 awaiting your confirmation"
+  │                             Bob: /phoenix-align D-001
+  │                             → Agree → resolved ✅
+  │                             Generate decisions/D-001.md
+  │                             Update THESIS Decision Log
+  │                             /phoenix-push
   │                                            │
   └────────────────────────────────────────────┘
                           │
        ╔══════════════════╧══════════════════════════════════════════╗
-       ║  [Side flow] Apply decision to source documents              ║
-       ║                                                              ║
-       ║  decisions/D-001.md contains per-party instruction blocks    ║
-       ║  (background / required changes / acceptance criterion)      ║
-       ║                                                              ║
-       ║  Alice                            Bob                        ║
-       ║  Read decisions/D-001.md          Read decisions/D-001.md    ║
-       ║  Pass to own model →              Pass to own model →        ║
-       ║  Model edits source doc           Model edits source doc     ║
-       ║       │                                │                     ║
-       ║  /phoenix-update                  /phoenix-update            ║
-       ║  AI verifies acceptance           AI verifies acceptance     ║
-       ║  criterion                        criterion                  ║
-       ║  ✅ Pass                           ✅ Pass                    ║
-       ║       │                                │                     ║
-       ║       └─────────── all ✅ ─────────────┘                     ║
-       ║                        │                                     ║
-       ║               D-001 fully-closed 🔒                          ║
+       ║ [Side flow] Apply decision to source documents              ║
+       ║                                                             ║
+       ║ decisions/D-001.md contains per-party instruction blocks    ║
+       ║ (background / required changes / acceptance criterion)      ║
+       ║                                                             ║
+       ║ Alice                            Bob                        ║
+       ║ Read decisions/D-001.md          Read decisions/D-001.md    ║
+       ║ Pass to own model →              Pass to own model →       ║
+       ║ Model edits source doc           Model edits source doc     ║
+       ║      │                               │                    ║
+       ║ /phoenix-update                  /phoenix-update            ║
+       ║ AI verifies acceptance           AI verifies acceptance     ║
+       ║ criterion                        criterion                  ║
+       ║ → Pass                           → Pass                    ║
+       ║      │                               │                    ║
+       ║      └─────────── all ✅ ─────────────┘                    ║
+       ║                       │                                     ║
+       ║              D-001 fully-closed 🔒                          ║
        ╚══════════════════╤══════════════════════════════════════════╝
                           │
               /phoenix-push (no open/proposed, push directly)
@@ -272,7 +278,7 @@ Change instructions: See .phoenix/decisions/D-003.md
 - **Divergence is proposed, awaiting my confirmation** → show proposer's resolution and reasoning:
   - ✅ Agree → `resolved`; AI generates per-party change instruction blocks (with acceptance criteria); update THESIS Decision Log
   - ❌ Reject (with reason) → revert to `open`
-  - 🔄 Modify and counter-propose → still `proposed`, proposer changes to me
+  - 📝 Modify and counter-propose → still `proposed`, proposer changes to me
 - **Divergence is proposed, I am proposer** → show waiting state; option to withdraw
 
 ### decisions/ — Decision instruction files
@@ -299,7 +305,7 @@ After pulling: detects `proposed` divergences awaiting your confirmation, and `r
 Before pushing, distinguishes:
 - 🟡 Proposals awaiting my confirmation → suggest confirming first
 - 🔴 Unresolved divergences → warn and wait
-- ⏳ Awaiting other party's confirmation → inform (non-blocking)
+- 🟡 Awaiting other party's confirmation → inform (non-blocking)
 
 ## Source Document Sync
 
@@ -331,7 +337,7 @@ When `align` confirms a resolution, AI analyzes both parties' documents against 
 
 After each party updates their source documents and runs `update`, AI auto-verifies against the **acceptance criterion**:
 - ✅ Satisfied → Action Item marked complete
-- ⚠️ Not satisfied → specific guidance (e.g. "GraphQL description still present in section 3")
+- ❌ Not satisfied → specific guidance (e.g. "GraphQL description still present in section 3")
 - All complete → divergence upgrades to `fully-closed` 🔒
 
 ### Branch protection
@@ -354,7 +360,7 @@ Generated in the target project after initialization:
 ├── RULES.md            # Code conventions
 ├── SIGNALS.md          # Runtime status & blockers
 ├── INDEX.md            # Auto-generated document index
-├── DIVERGENCES.md      # Divergence registry (D-001… status summary): written by review, read by align/push/status
+├── DIVERGENCES.md      # Divergence registry (D-001…status summary): written by review, read by align/push/status
 ├── last-parse.json     # Parse cache (file hashes)
 ├── last-review.json    # Review anchor: per-collaborator commit hashes + source file hashes at last review
 ├── last-sync.json      # Source document sync state: source file hashes, maintained by update skill
@@ -377,7 +383,7 @@ PhoenixTeam/
 │   └── plugin.json               # Claude Code plugin definition
 ├── .codex-plugin/plugin.json     # Codex CLI plugin manifest
 ├── plugin/                       # Plugin core
-│   ├── skills/                   # 12 Skills (shared across platforms)
+│   ├── skills/                   # 13 Skills (shared across platforms)
 │   │   ├── phoenix-init/
 │   │   ├── phoenix-whoami/
 │   │   ├── phoenix-pull/
@@ -389,7 +395,8 @@ PhoenixTeam/
 │   │   ├── phoenix-diff/
 │   │   ├── phoenix-review/
 │   │   ├── phoenix-align/
-│   │   └── phoenix-archive/
+│   │   ├── phoenix-archive/
+│   │   └── phoenix-import/
 │   ├── CLAUDE.md                 # Shared context (Claude Code)
 │   └── AGENTS.md                 # Shared context (Codex CLI)
 ├── PHOENIXTEAM.md                # Standalone prompt version (manual mode)

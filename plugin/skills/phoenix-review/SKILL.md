@@ -1,8 +1,17 @@
 ---
 name: phoenix-review
+short-description: "Analyze divergences between collaborators"
 description: "Analyze divergence between collaborators' documents. Compares all members' proposals against THESIS (North Star), identifies conflicts, overlaps, and gaps, and produces a structured divergence report. Writes results to DIVERGENCES.md with stable IDs (D-001, D-002…). Read-only on design docs — does not modify any collaborator files."
 user-invocable: true
 argument-hint: "[topic or specific file to focus on]"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 2100
+  data-read: variable
+  output: 1500
+  total: ~6100+
 ---
 
 # Skill: review

@@ -1,8 +1,17 @@
 ---
 name: phoenix-archive
+short-description: "Freeze and archive a design proposal"
 description: "Archive a design proposal by moving it from .phoenix/design/ to .phoenix/archive/{timestamp}/. Checks DIVERGENCES.md for references — warns if the file is part of an open/proposed divergence. Updates THESIS.md decision log and commits with diff."
 user-invocable: true
 argument-hint: "<member-code/filename.md>"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 700
+  data-read: 300
+  output: 400
+  total: ~3900
 ---
 
 # Skill: archive

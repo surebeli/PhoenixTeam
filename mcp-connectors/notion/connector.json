@@ -1,0 +1,124 @@
+{
+  "name": "phoenix-notion-connector",
+  "version": "0.1.0",
+  "description": "MCP connector for importing Notion pages into PhoenixTeam. Converts Notion blocks to normalized Markdown and syncs into .phoenix/design/.",
+  "protocol": "mcp",
+  "transport": "stdio",
+  "capabilities": {
+    "resources": true,
+    "tools": true,
+    "prompts": false
+  },
+  "resources": [
+    {
+      "uri": "notion://page/{page_id}",
+      "name": "Notion Page",
+      "description": "Read a Notion page by its ID and return as Markdown",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "notion://database/{database_id}",
+      "name": "Notion Database",
+      "description": "List entries in a Notion database, return titles and links",
+      "mimeType": "application/json"
+    }
+  ],
+  "tools": [
+    {
+      "name": "notion_read_page",
+      "description": "Fetch a Notion page by ID or URL and convert to Markdown. Handles nested blocks (headings, lists, code, callouts, toggles, tables). Returns a clean Markdown document suitable for PhoenixTeam normalization.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_id_or_url": {
+            "type": "string",
+            "description": "Notion page ID (32-char hex) or full Notion URL (https://notion.so/...)"
+          },
+          "include_child_pages": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, recursively fetch child pages and append as sub-sections"
+          },
+          "include_comments": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, include page comments as a '## Comments' section"
+          }
+        },
+        "required": ["page_id_or_url"]
+      }
+    },
+    {
+      "name": "notion_list_database",
+      "description": "List entries in a Notion database. Returns an array of {title, page_id, last_edited} for each row. Use this to discover available design documents before importing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "database_id_or_url": {
+            "type": "string",
+            "description": "Notion database ID or full URL"
+          },
+          "filter": {
+            "type": "object",
+            "description": "Optional Notion filter object (same format as Notion API filter)",
+            "default": {}
+          },
+          "max_results": {
+            "type": "integer",
+            "default": 50,
+            "description": "Maximum number of entries to return"
+          }
+        },
+        "required": ["database_id_or_url"]
+      }
+    },
+    {
+      "name": "notion_search",
+      "description": "Search across all accessible Notion pages and databases by keyword. Returns matching pages with titles, IDs, and snippets.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query string"
+          },
+          "filter_type": {
+            "type": "string",
+            "enum": ["page", "database"],
+            "description": "Optional: only return pages or databases"
+          },
+          "max_results": {
+            "type": "integer",
+            "default": 20
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  ],
+  "authentication": {
+    "type": "bearer",
+    "description": "Notion Internal Integration Token. Create at https://www.notion.so/my-integrations",
+    "env_var": "NOTION_API_KEY"
+  },
+  "block_type_mapping": {
+    "_comment": "How Notion block types are converted to Markdown",
+    "paragraph": "Plain text paragraph",
+    "heading_1": "# Heading",
+    "heading_2": "## Heading",
+    "heading_3": "### Heading",
+    "bulleted_list_item": "- List item",
+    "numbered_list_item": "1. List item",
+    "to_do": "- [ ] / - [x] Checkbox",
+    "toggle": "> Toggle block (content as blockquote)",
+    "code": "```{language}\\ncode\\n```",
+    "quote": "> Quoted text",
+    "callout": "> {emoji} Callout text",
+    "divider": "---",
+    "table": "Markdown table",
+    "image": "![caption](url)",
+    "bookmark": "[title](url)",
+    "child_page": "Recursed as sub-section (if include_child_pages=true)",
+    "unsupported": "<!-- Unsupported Notion block: {type} -->"
+  }
+}

@@ -1,0 +1,289 @@
+name: PhoenixTeam CI — Validate Skills & Structure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugin/**'
+      - 'tests/**'
+      - 'PHOENIXTEAM.md'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'plugin/**'
+      - 'tests/**'
+      - 'PHOENIXTEAM.md'
+
+jobs:
+  validate-structure:
+    name: Validate Plugin Structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify all skills have SKILL.md
+        run: |
+          echo "=== Checking skill directories ==="
+          ERRORS=0
+          for dir in plugin/skills/phoenix-*/; do
+            skill_name=$(basename "$dir")
+            if [ ! -f "$dir/SKILL.md" ]; then
+              echo "❌ Missing SKILL.md in $dir"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $skill_name/SKILL.md exists"
+            fi
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS skill(s) missing SKILL.md"
+            exit 1
+          fi
+          echo "All skills have SKILL.md ✅"
+
+      - name: Verify frontmatter fields
+        run: |
+          echo "=== Checking frontmatter fields ==="
+          ERRORS=0
+          REQUIRED_FIELDS=("name" "short-description" "description" "user-invocable" "triggers" "callable-by")
+          
+          for skill_file in plugin/skills/phoenix-*/SKILL.md; do
+            skill_name=$(dirname "$skill_file" | xargs basename)
+            
+            # Extract frontmatter (between --- markers)
+            frontmatter=$(sed -n '/^---$/,/^---$/p' "$skill_file")
+            
+            for field in "${REQUIRED_FIELDS[@]}"; do
+              if ! echo "$frontmatter" | grep -q "^${field}:"; then
+                echo "❌ $skill_name: missing required field '$field'"
+                ERRORS=$((ERRORS + 1))
+              fi
+            done
+            
+            # Check short-description length (≤80 chars)
+            short_desc=$(echo "$frontmatter" | grep '^short-description:' | sed 's/^short-description: *"//' | sed 's/"$//')
+            if [ ${#short_desc} -gt 80 ]; then
+              echo "⚠️ $skill_name: short-description exceeds 80 chars (${#short_desc})"
+              ERRORS=$((ERRORS + 1))
+            fi
+            
+            echo "✅ $skill_name frontmatter OK"
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS frontmatter issue(s) found"
+            exit 1
+          fi
+          echo "All frontmatter valid ✅"
+
+      - name: Verify skill count matches manifests
+        run: |
+          echo "=== Checking skill count consistency ==="
+          SKILL_COUNT=$(ls -d plugin/skills/phoenix-*/ | wc -l)
+          echo "Found $SKILL_COUNT skills in plugin/skills/"
+          
+          if [ "$SKILL_COUNT" -lt 13 ]; then
+            echo "::error::Expected at least 13 skills, found $SKILL_COUNT"
+            exit 1
+          fi
+          echo "Skill count OK: $SKILL_COUNT ✅"
+
+      - name: Verify core files exist
+        run: |
+          echo "=== Checking core files ==="
+          REQUIRED_FILES=(
+            "plugin/SHARED-CONTEXT.md"
+            "plugin/CLAUDE.md"
+            "plugin/AGENTS.md"
+            "PHOENIXTEAM.md"
+            "LICENSE"
+            "CHANGELOG.md"
+            "README.md"
+            "README.zh-CN.md"
+            ".claude-plugin/marketplace.json"
+            ".codex-plugin/plugin.json"
+          )
+          
+          ERRORS=0
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing required file: $file"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $file"
+            fi
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS required file(s) missing"
+            exit 1
+          fi
+          echo "All core files present ✅"
+
+      - name: Verify version consistency
+        run: |
+          echo "=== Checking version consistency ==="
+          
+          # Extract versions from different sources
+          PHOENIXTEAM_VER=$(head -1 PHOENIXTEAM.md | grep -oP 'v\d+\.\d+')
+          CLAUDE_PLUGIN_VER=$(python3 -c "import json; print(json.load(open('.claude-plugin/marketplace.json'))['plugins'][0]['version'])")
+          CODEX_PLUGIN_VER=$(python3 -c "import json; print(json.load(open('.codex-plugin/plugin.json'))['version'])")
+          
+          echo "PHOENIXTEAM.md:     $PHOENIXTEAM_VER"
+          echo "marketplace.json:   $CLAUDE_PLUGIN_VER"
+          echo "codex plugin.json:  $CODEX_PLUGIN_VER"
+          
+          # Check Claude and Codex match
+          if [ "$CLAUDE_PLUGIN_VER" != "$CODEX_PLUGIN_VER" ]; then
+            echo "::error::Version mismatch between Claude ($CLAUDE_PLUGIN_VER) and Codex ($CODEX_PLUGIN_VER) manifests"
+            exit 1
+          fi
+          
+          # Check PHOENIXTEAM.md matches (major.minor)
+          MANIFEST_MAJOR_MINOR=$(echo "$CLAUDE_PLUGIN_VER" | grep -oP '^\d+\.\d+')
+          if [ "$PHOENIXTEAM_VER" != "v$MANIFEST_MAJOR_MINOR" ]; then
+            echo "::warning::PHOENIXTEAM.md version ($PHOENIXTEAM_VER) differs from manifest ($MANIFEST_MAJOR_MINOR) — update PHOENIXTEAM.md header"
+          fi
+          
+          echo "Version consistency OK ✅"
+
+  validate-tests:
+    name: Validate Test Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify test prompts exist
+        run: |
+          echo "=== Checking test prompts ==="
+          EXPECTED_TESTS=(
+            "01-init-founder"
+            "02-init-join"
+            "03-update-new"
+            "04-update-delete"
+            "05-review-conflict"
+            "06-align-propose"
+            "07-align-approve"
+            "08-align-reject"
+            "09-push-drift"
+            "10-status-full"
+          )
+          
+          ERRORS=0
+          for test in "${EXPECTED_TESTS[@]}"; do
+            if [ ! -f "tests/prompts/${test}.md" ]; then
+              echo "❌ Missing test: tests/prompts/${test}.md"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ ${test}.md"
+            fi
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS test prompt(s) missing"
+            exit 1
+          fi
+          echo "All test prompts present ✅"
+
+      - name: Verify mock scenarios
+        run: |
+          echo "=== Checking mock scenarios ==="
+          EXPECTED_SCENARIOS=(
+            "tests/mock-scenarios/demo-1-conflict/alice/api-design.md"
+            "tests/mock-scenarios/demo-1-conflict/bob/api-design.md"
+            "tests/mock-scenarios/demo-2-solo/dev-solo/product-plan.md"
+            "tests/mock-scenarios/demo-3-three-way/alice/payment-architecture.md"
+            "tests/mock-scenarios/demo-3-three-way/bob/payment-architecture.md"
+            "tests/mock-scenarios/demo-3-three-way/carol/payment-architecture.md"
+          )
+          
+          ERRORS=0
+          for scenario in "${EXPECTED_SCENARIOS[@]}"; do
+            if [ ! -f "$scenario" ]; then
+              echo "❌ Missing: $scenario"
+              ERRORS=$((ERRORS + 1))
+            else
+              echo "✅ $scenario"
+            fi
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS mock scenario file(s) missing"
+            exit 1
+          fi
+          echo "All mock scenarios present ✅"
+
+      - name: Verify test prompts have verification checklists
+        run: |
+          echo "=== Checking test prompt quality ==="
+          ERRORS=0
+          
+          for test_file in tests/prompts/[0-9]*.md; do
+            test_name=$(basename "$test_file" .md)
+            
+            # Check required sections
+            for section in "## Scenario" "## Prerequisites" "## Test Prompt" "## Verification Checklist"; do
+              if ! grep -q "$section" "$test_file"; then
+                echo "❌ $test_name: missing section '$section'"
+                ERRORS=$((ERRORS + 1))
+              fi
+            done
+            
+            # Check has at least 3 checklist items
+            CHECKLIST_COUNT=$(grep -c '^\- \[ \]' "$test_file" || true)
+            if [ "$CHECKLIST_COUNT" -lt 3 ]; then
+              echo "⚠️ $test_name: only $CHECKLIST_COUNT checklist items (recommend ≥3)"
+            fi
+            
+            echo "✅ $test_name structure OK ($CHECKLIST_COUNT checklist items)"
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS test prompt structure issue(s)"
+            exit 1
+          fi
+          echo "All test prompts well-structured ✅"
+
+  validate-triggers:
+    name: Validate Skill Dependency Graph
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify trigger/callable-by consistency
+        run: |
+          echo "=== Checking skill dependency graph ==="
+          ERRORS=0
+          
+          # For each skill that declares triggers, verify the target declares callable-by
+          for skill_file in plugin/skills/phoenix-*/SKILL.md; do
+            skill_name=$(dirname "$skill_file" | xargs basename)
+            frontmatter=$(sed -n '/^---$/,/^---$/p' "$skill_file")
+            
+            # Extract triggers list
+            triggers=$(echo "$frontmatter" | grep '^triggers:' | sed 's/triggers: *//' | tr -d '[]' | tr ',' '\n' | sed 's/^ *//' | sed 's/ *$//')
+            
+            for target in $triggers; do
+              if [ -z "$target" ]; then continue; fi
+              target_file="plugin/skills/${target}/SKILL.md"
+              
+              if [ ! -f "$target_file" ]; then
+                echo "❌ $skill_name triggers '$target' but $target_file does not exist"
+                ERRORS=$((ERRORS + 1))
+                continue
+              fi
+              
+              target_fm=$(sed -n '/^---$/,/^---$/p' "$target_file")
+              if ! echo "$target_fm" | grep -q "callable-by:.*${skill_name}"; then
+                echo "⚠️ $skill_name triggers '$target', but $target does not list $skill_name in callable-by"
+              else
+                echo "✅ $skill_name → $target (trigger ↔ callable-by consistent)"
+              fi
+            done
+          done
+          
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS trigger dependency error(s)"
+            exit 1
+          fi
+          echo "Dependency graph valid ✅"

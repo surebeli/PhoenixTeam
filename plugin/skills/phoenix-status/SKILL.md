@@ -1,7 +1,16 @@
 ---
 name: phoenix-status
+short-description: "Show workspace status and consistency score"
 description: "Show full PhoenixTeam workspace status: Git state, current identity, collaborator map, INDEX summary, divergence panel (open/proposed/resolved with approval context), recent diffs by collaborator, unresolved blockers, and team consistency score (0-100)."
 user-invocable: true
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 600
+  data-read: 500
+  output: 800
+  total: ~4400
 ---
 
 # Skill: status

@@ -1,8 +1,17 @@
 ---
 name: phoenix-init
+short-description: "Initialize or join a PhoenixTeam project"
 description: "Initialize PhoenixTeam: set up collaborator identity, normalize design documents into .phoenix/, create core files, and establish Git diff baseline. Use this when starting PhoenixTeam for the first time or onboarding a new collaborator."
 user-invocable: true
 argument-hint: "[--branch=phoenix-docs | --submodule]"
+triggers: [phoenix-parse]
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 2000
+  data-read: variable
+  output: 800
+  total: ~5300+
 ---
 
 # Skill: init

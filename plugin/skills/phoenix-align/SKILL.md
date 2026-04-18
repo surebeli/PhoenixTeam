@@ -1,8 +1,17 @@
 ---
 name: phoenix-align
+short-description: "Resolve divergences via Propose → Approve"
 description: "Resolve divergence between collaborators via two-phase Propose → Approve workflow. Reads open/proposed divergences from DIVERGENCES.md. Proposer picks a resolution (status becomes proposed); the other party approves or rejects (status becomes resolved or reverts to open). THESIS.md is only updated after both parties agree."
 user-invocable: true
 argument-hint: "<D-001 | topic keyword | 'all'>"
+triggers: []
+callable-by: []
+estimated-tokens:
+  context: 2500
+  skill: 3000
+  data-read: variable
+  output: 2000
+  total: ~7500+
 ---
 
 # Skill: align
