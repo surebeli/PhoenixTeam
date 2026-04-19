@@ -14,16 +14,16 @@ All skills are invoked via **slash commands**:
 
 ### Identity Guard Message
 ```
-⚠️ 本机尚未绑定身份，请先运行 `/phoenix-whoami` 完成身份绑定后再继续。
+⚠️ Identity not bound on this machine. Please run `/phoenix-whoami` to bind identity before continuing.
 ```
 
 ### Branch Guard Recovery Message
 ```
-⚠️ 本机未绑定 PhoenixTeam 主分支，且 COLLABORATORS.md 中无记录。
-请运行 `/phoenix-init` 重新完成初始化以恢复分支绑定。
+⚠️ PhoenixTeam main branch not bound locally, and no record found in COLLABORATORS.md.
+Please run `/phoenix-init` to re-initialize and recover branch binding.
 ```
 
 ### Next Step Format
 Use slash command format in recommendations:
-- `"建议下一步：/phoenix-status"`
-- `"运行 /phoenix-push 推送变更"`
+- `"Recommended next step: /phoenix-status"`
+- `"Run /phoenix-push to push changes"`

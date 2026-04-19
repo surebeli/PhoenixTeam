@@ -14,16 +14,16 @@ All skills are invoked via **plugin:skill** syntax:
 
 ### Identity Guard Message
 ```
-⚠️ 本机尚未绑定身份，请先运行 `p-team:phoenix-whoami` 完成身份绑定后再继续。
+⚠️ Identity not bound on this machine. Please run `p-team:phoenix-whoami` to bind identity before continuing.
 ```
 
 ### Branch Guard Recovery Message
 ```
-⚠️ 本机未绑定 PhoenixTeam 主分支，且 COLLABORATORS.md 中无记录。
-请运行 `p-team:phoenix-init` 重新完成初始化以恢复分支绑定。
+⚠️ PhoenixTeam main branch not bound locally, and no record found in COLLABORATORS.md.
+Please run `p-team:phoenix-init` to re-initialize and recover branch binding.
 ```
 
 ### Next Step Format
 Use Codex CLI format in recommendations:
-- `"建议下一步：p-team:phoenix-status"`
-- `"运行 p-team:phoenix-push 推送变更"`
+- `"Recommended next step: p-team:phoenix-status"`
+- `"Run p-team:phoenix-push to push changes"`

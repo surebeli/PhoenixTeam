@@ -5,6 +5,19 @@ All notable changes to PhoenixTeam will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-04-19
+
+### Added
+- **Language Policy Enforcement**: Enforced strict English-only policy for all skills, prompts, and git commits to resolve locale mixing issues.
+- **Git Commit Hook**: Added `.githooks/commit-msg` to block commits containing CJK characters.
+- **CI Validation**: Added `validate-locale` job in GitHub Actions to check for CJK characters in `SKILL.md` files and PR commit messages.
+- **Bilingual Documentation**: Created `product-requirements.zh-CN.md` and `go-to-market.zh-CN.md` as dedicated Chinese translations, translating original docs to English.
+
+### Changed
+- Translated all user-facing output templates in 7 skill files (`whoami`, `align`, `update`, `push`, `parse`, `import`, `archive`) to English.
+- Updated `CONTRIBUTING.md` to emphasize the strict English-only requirement.
+- Updated test prompt assertions to expect English output.
+
 ## [2.5.0] - 2026-04-19
 
 ### Added

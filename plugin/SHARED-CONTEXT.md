@@ -26,7 +26,7 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
   - **maintainer**: Full access. Can modify THESIS.md North Star section, propose/approve divergences, push, archive.
   - **contributor**: Can propose/approve divergences, update/push own docs. Cannot modify THESIS North Star directly.
   - **observer**: Read-only. Can run `status`, `diff`, `suggest`, `parse`. Cannot run `init` (as founder), `push`, `align`, `archive`, `update`.
-- **Role guard**: After identity guard and branch guard, read the current user's role from COLLABORATORS.md. If the skill requires a role the user doesn't have, output `❌ [PX-E007] 权限不足：当前角色 '{role}' 无法执行此操作。` and stop.
+- **Role guard**: After identity guard and branch guard, read the current user's role from COLLABORATORS.md. If the skill requires a role the user doesn't have, output `❌ [PX-E007] Insufficient permissions: current role '{role}' cannot perform this action.` and stop.
 - **Default role**: If COLLABORATORS.md has no Role column (legacy format), treat all members as `contributor`.
 
 ## Core Principles
@@ -47,16 +47,16 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
   - **`{main_branch}` is set and matches `{current_branch}`** → pass, proceed normally.
   - **`{main_branch}` is set and differs from `{current_branch}`** → stop immediately and output:
     ```
-    ❌ 当前分支 '{current_branch}' 不是 PhoenixTeam 主分支 '{main_branch}'。
-    PhoenixTeam 操作只能在主分支上执行，以防止 .phoenix/ 状态随分支分叉。
-    请切换到主分支后再运行：git checkout {main_branch}
+    ❌ Current branch '{current_branch}' is not the PhoenixTeam main branch '{main_branch}'.
+    PhoenixTeam operations must run on the main branch to prevent .phoenix/ state divergence.
+    Please switch to the main branch before running: git checkout {main_branch}
     ```
   - **`{main_branch}` is empty AND `.phoenix/` does NOT exist** → first-time init, skip the check and proceed (init will establish the binding).
   - **`{main_branch}` is empty AND `.phoenix/` EXISTS** → user cloned the repo but never ran `phoenix-init`. Auto-recover:
     1. Read `Main Branch` field from `.phoenix/COLLABORATORS.md`.
     2. If found → run `git config --local phoenix.main-branch {main_branch}` silently, then output:
        ```
-       ℹ️ 已自动绑定主分支：{main_branch}（从 COLLABORATORS.md 读取）
+       ℹ️ Automatically bound to main branch: {main_branch} (read from COLLABORATORS.md)
        ```
        Then apply the branch check with the recovered value (block if current branch differs).
     3. If `COLLABORATORS.md` has no `Main Branch` field → output the init-required error (see platform-specific context file). Stop. Do not proceed.
@@ -91,9 +91,9 @@ All PhoenixTeam skills share these core principles. Follow them strictly.
 
 ## Output Format (every skill response must follow)
 
-1. **【执行日志】** Command + output (include `[PX-XXXX]` codes for any errors/warnings)
-2. **【当前身份】** Who am I: {member code} (role: {role})
-3. **【Diff 感知摘要】** Grouped by member code
-4. **【结果摘要】**
-5. **【关键建议】** (if any)
-6. **【下一步推荐 Skill】** — Use platform-specific command format (see platform context file)
+1. **[Execution Log]** Command + output (include `[PX-XXXX]` codes for any errors/warnings)
+2. **[Current Identity]** Who am I: {member code} (role: {role})
+3. **[Diff-Aware Summary]** Grouped by member code
+4. **[Result Summary]**
+5. **[Key Suggestions]** (if any)
+6. **[Recommended Next Skill]** — Use platform-specific command format (see platform context file)
