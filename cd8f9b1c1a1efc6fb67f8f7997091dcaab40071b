@@ -1,0 +1,61 @@
+plugin/skills/phoenix-import/SKILL.md
+  0000019da1a5b74b 1-43
+tests/mock-scenarios/README.md
+  0000019da1a5b74b 1-17
+tests/mock-scenarios/demo-1-conflict/bob/api-design.md
+  0000019da1a5b74b 1-25
+tests/mock-scenarios/demo-1-conflict/alice/api-design.md
+  0000019da1a5b74b 1-12
+README.zh-CN.md
+  0000019da1a5b74b 1-423
+README.md
+  0000019da1a5b74b 1-424
+GEMINI.md
+  0000019da1a5b74b 1-65
+---
+{
+    "schema_version":  "authorship/3.0.0",
+    "git_ai_version":  "1.3.1",
+    "base_commit_sha":  "cd8f9b1c1a1efc6fb67f8f7997091dcaab40071b",
+    "prompts":  {
+                    "2cfd21bb65112449":  {
+                                             "agent_id":  {
+                                                              "tool":  "gemini",
+                                                              "id":  "71f44ff9-0cf9-4972-8db2-b7b40b54e3f1",
+                                                              "model":  "gemini-3.1-pro-preview"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  0,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  0,
+                                             "overriden_lines":  0
+                                         },
+                    "8bcd84d9a1f46e5e":  {
+                                             "agent_id":  {
+                                                              "tool":  "mock_ai",
+                                                              "id":  "ai-thread-1776533483392292100",
+                                                              "model":  "unknown"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  0,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  0,
+                                             "overriden_lines":  0
+                                         },
+                    "0000019da1a5b74b":  {
+                                             "agent_id":  {
+                                                              "model":  "unknown",
+                                                              "tool":  "mock_ai",
+                                                              "id":  "ai-thread-mockai-1776533485387"
+                                                          },
+                                             "human_author":  "litianyi",
+                                             "messages":  [],
+                                             "total_additions":  1009,
+                                             "total_deletions":  0,
+                                             "accepted_lines":  1009,
+                                             "overriden_lines":  0
+                                         }
+                }
+}
