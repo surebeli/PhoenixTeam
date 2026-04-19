@@ -1,0 +1,14 @@
+{
+  "name": "PhoenixTeam",
+  "owner": {
+    "name": "surebeli"
+  },
+  "plugins": [
+    {
+      "name": "p-team",
+      "source": "./plugin",
+      "description": "Distributed AI team document collaboration — pure prompt, zero code",
+      "version": "2.7.0"
+    }
+  ]
+}
