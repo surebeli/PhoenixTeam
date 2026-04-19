@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./docs/images/logo.png" alt="Phoenix Git Logo" width="600">
+</p>
+
 # PhoenixTeam
 
 Distributed AI team document collaboration plugin — pure prompts, zero code, ready to use immediately.
