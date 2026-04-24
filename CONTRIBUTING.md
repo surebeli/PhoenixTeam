@@ -150,7 +150,7 @@ Brief purpose statement.
 2. **Branch guard**: Always verify current branch matches `spec.main-branch`
 3. **Read-only on source**: Never modify files outside `.spec/`
 4. **Structured output**: Follow the 6-section output format (see SHARED-CONTEXT.md)
-5. **Commit messages**: Use `[SpecTeam]` prefix, **must be in English** (enforced by git hook)
+5. **Commit messages**: **English only**, no prefix is required. Workflow-generated commits (e.g. from `spec-push`, `spec-align`) use `[SpecTeam] {category}` labels as an internal categorization — that is a skill convention, not a contributor requirement.
 6. **Stop and wait**: Use explicit "Stop and wait for the user to reply" at interaction points
 7. **Divergence-aware**: Check DIVERGENCES.md impact for any file mutations
 8. **English-only**: All skill prompts, output templates, and generated content must be in English. Do not mix Chinese and English in SKILL.md files.
@@ -205,7 +205,7 @@ GitHub Actions CI runs on every PR — see `.github/workflows/validate.yml`.
 > **All code, prompts, and commit messages MUST be in English.** Chinese translations are only permitted in dedicated translation files (e.g., `README.zh-CN.md`).
 
 - **Skill prompts (`SKILL.md`)**: English only — both instructions and output templates
-- **Commit messages**: English only with `[SpecTeam]` prefix (enforced by `commit-msg` hook)
+- **Commit messages**: English only. No fixed prefix is required — the `commit-msg` hook only rejects CJK characters. Skill-generated commits (from `spec-push`, `spec-align`, etc.) embed a `[SpecTeam] {category}` label as a workflow convention; do not replicate it on hand-written developer commits unless it's genuinely meaningful.
 - **README**: English (`README.md`) + dedicated Chinese translation (`README.zh-CN.md`)
 - **Design documents**: English preferred; Chinese-only docs should use `.zh-CN` suffix
 - **Git hooks**: Run `git config core.hooksPath .githooks` after cloning to activate the commit message guard

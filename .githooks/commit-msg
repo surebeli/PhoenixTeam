@@ -1,7 +1,8 @@
 #!/bin/sh
 #
-# PhoenixTeam commit-msg hook
+# SpecTeam commit-msg hook
 # Enforces English-only commit messages by rejecting CJK characters.
+# No commit-message prefix is required.
 #
 # Install: git config core.hooksPath .githooks
 # See CONTRIBUTING.md "Language Policy" for details.
@@ -20,7 +21,8 @@ if grep -P '[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}\x{f900}-\x{faff}]' "$COMMIT_MSG_
   echo ""
   echo "❌ COMMIT REJECTED: Non-English characters detected in commit message."
   echo ""
-  echo "   PhoenixTeam requires all commit messages to be written in English."
+  echo "   SpecTeam requires all commit messages to be written in English."
+  echo "   No prefix is required — just keep the whole message English."
   echo "   See CONTRIBUTING.md 'Language Policy' for guidelines."
   echo ""
   echo "   Your message:"
