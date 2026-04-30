@@ -15,9 +15,10 @@ typed parser, and a runtime validator — published as a reusable package — so
 later workstreams (state engine, workflow engine, Spec Server) can build on it
 without re-parsing markdown.
 
-**After Phase 2:** the schema is code, every fixture in `tests/fixtures/states/`
-validates against it, a `spec validate` CLI command exists for smoke-testing,
-and the legacy fixture round-trips through a migration helper. The existing
+**After Phase 2:** the schema is code, every fixture in
+`packages/spec-fixtures/states/` validates against it, a `spec validate` CLI
+command exists for smoke-testing, and the legacy fixture round-trips through a
+migration helper. The existing
 CLI and VS Code extension still parse markdown the old way — their migration
 is **explicitly Phase 3**.
 
