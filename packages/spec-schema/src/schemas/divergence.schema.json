@@ -55,7 +55,7 @@
         },
         "proposedAt": {
           "type": "string",
-          "pattern": "^[a-z-]+ @ [0-9a-f]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
+          "pattern": "^[a-z-]+ @ [a-z0-9]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
         },
         "decision": {
           "type": "string",
@@ -81,11 +81,11 @@
       "properties": {
         "resolvedAt": {
           "type": "string",
-          "pattern": "^[a-z-]+ @ [0-9a-f]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
+          "pattern": "^[a-z-]+ @ [a-z0-9]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
         },
         "closedAt": {
           "type": "string",
-          "pattern": "^[a-z-]+ @ [0-9a-f]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
+          "pattern": "^[a-z-]+ @ [a-z0-9]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
         },
         "decision": {
           "type": "string",
@@ -144,7 +144,7 @@
         },
         "foundAt": {
           "type": "string",
-          "pattern": "^[a-z-]+ @ [0-9a-f]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
+          "pattern": "^[a-z-]+ @ [a-z0-9]{7,40} \\(\\d{4}-\\d{2}-\\d{2}\\)$"
         },
         "proposal": {
           "$ref": "#/$defs/proposal"

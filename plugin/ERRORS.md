@@ -68,6 +68,21 @@ PX-P{number} = Markdown parse failure
 | **PX-V009** | Reserved Validation Slot | Reserved for future cache-anchor validation | n/a |
 | **PX-V010** | Generic Validation Failure | Validation failed but did not map to a more specific PX-V code | Inspect the raw validation message and fix the underlying field |
 
+## Parse Errors (Deterministic Markdown Parsing)
+
+| Code | Message | Cause | Recovery |
+|------|---------|-------|----------|
+| **PX-P001** | Missing Section or Heading | A required markdown heading/banner was not found | Restore the expected section heading or migrate the legacy file |
+| **PX-P002** | Malformed Table | A required markdown table header or row shape is invalid | Rewrite the table to the documented column layout |
+| **PX-P003** | Missing Field Line | A required `**Field**:` line is absent or malformed | Restore the missing field line with the expected label |
+| **PX-P004** | Malformed List Entry | A bullet/list item does not match the expected parseable shape | Rewrite the bullet using the documented markdown form |
+| **PX-P005** | Malformed Event Line | A generated banner or event/timestamp line is malformed | Rewrite the line to the documented date/event pattern |
+| **PX-P006** | Unsupported State Value | Parsed markdown surfaced a status/state outside the supported set | Replace it with a documented protocol state |
+| **PX-P007** | Legacy Format Detected | The parser detected a pre-3.0 legacy markdown shape | Run the `legacy-pre-3.0` migration helper |
+| **PX-P008** | Malformed Change Instructions | A decision-file change-instructions block is incomplete or malformed | Rewrite the per-collaborator block to the current template |
+| **PX-P009** | Malformed Document Tree | INDEX document-tree entries could not be parsed deterministically | Rewrite the tree bullets to the generated parse format |
+| **PX-P010** | Parsed Output Failed Validation | Markdown parsed structurally, but the typed result failed schema validation | Inspect the downstream PX-V code and fix the parsed fields |
+
 ## Usage in Skills
 
 When outputting an error or warning, use this format:
