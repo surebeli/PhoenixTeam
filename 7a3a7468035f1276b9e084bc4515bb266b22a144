@@ -1,0 +1,109 @@
+packages/spec-schema/package.json
+  5328109e9328371e 1-20
+packages/spec-schema/tsconfig.json
+  5328109e9328371e 1-13
+packages/spec-schema/src/index.ts
+  5328109e9328371e 1-36
+packages/spec-schema/src/metadata.ts
+  5328109e9328371e 1-2
+packages/spec-schema/src/schema-loader.ts
+  5328109e9328371e 1-16
+packages/spec-schema/src/schemas/envelope.schema.json
+  5328109e9328371e 1-26
+packages/spec-schema/src/schemas/index.ts
+  5328109e9328371e 1-12
+packages/spec-schema/src/types/envelope.ts
+  5328109e9328371e 1-8
+packages/spec-schema/src/validator.ts
+  5328109e9328371e 1-256
+packages/spec-schema/src/types/action-item.ts
+  5328109e9328371e 1-11
+packages/spec-schema/src/types/collaborator.ts
+  5328109e9328371e 1-17
+packages/spec-schema/src/types/decision.ts
+  5328109e9328371e 1-13
+packages/spec-schema/src/types/divergence.ts
+  5328109e9328371e 1-47
+packages/spec-schema/src/types/index-doc.ts
+  5328109e9328371e 1-29
+packages/spec-schema/src/types/signal.ts
+  5328109e9328371e 1-15
+packages/spec-schema/src/types/thesis.ts
+  5328109e9328371e 1-15
+packages/spec-schema/src/types/index.ts
+  5328109e9328371e 1-44
+packages/spec-schema/src/schemas/action-item.schema.json
+  5328109e9328371e 1-57
+packages/spec-schema/src/schemas/collaborator.schema.json
+  5328109e9328371e 1-52
+packages/spec-schema/src/schemas/decision.schema.json
+  5328109e9328371e 1-52
+packages/spec-schema/src/schemas/divergence.schema.json
+  5328109e9328371e 1-244
+packages/spec-schema/src/schemas/index-doc.schema.json
+  5328109e9328371e 1-123
+packages/spec-schema/src/schemas/signal.schema.json
+  5328109e9328371e 1-47
+packages/spec-schema/src/schemas/thesis.schema.json
+  5328109e9328371e 1-47
+packages/spec-schema/tsconfig.test.json
+  5328109e9328371e 1-9
+packages/spec-schema/test/fixture-models.ts
+  5328109e9328371e 1-409
+packages/spec-schema/test/validator.test.ts
+  5328109e9328371e 1-126
+packages/spec-schema/dist-test/src/index.js
+  5328109e9328371e 1-10
+packages/spec-schema/dist-test/src/metadata.js
+  5328109e9328371e 1-5
+packages/spec-schema/dist-test/src/schema-loader.js
+  5328109e9328371e 1-16
+packages/spec-schema/dist-test/src/schemas/index.js
+  5328109e9328371e 1-14
+packages/spec-schema/dist-test/src/types/action-item.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/collaborator.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/decision.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/divergence.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/envelope.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/index-doc.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/index.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/signal.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/types/thesis.js
+  5328109e9328371e 1-2
+packages/spec-schema/dist-test/src/validator.js
+  5328109e9328371e 1-199
+packages/spec-schema/dist-test/test/fixture-models.js
+  5328109e9328371e 1-380
+packages/spec-schema/dist-test/test/validator.test.js
+  5328109e9328371e 1-94
+.gitignore
+  5328109e9328371e 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "7a3a7468035f1276b9e084bc4515bb266b22a144",
+  "prompts": {
+    "5328109e9328371e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "ad8802a2-7480-486b-b4aa-ee46f818c0e6",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 2513,
+      "total_deletions": 0,
+      "accepted_lines": 2513,
+      "overriden_lines": 0
+    }
+  }
+}
