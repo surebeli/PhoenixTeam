@@ -1,0 +1,25 @@
+packages/spec-fixtures/package.json
+  5328109e9328371e 1-9
+packages/vscode-extension/package.json
+  5328109e9328371e 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "c96178ebba7bfcbae3c0caf5328ff7932cf4214a",
+  "prompts": {
+    "5328109e9328371e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "ad8802a2-7480-486b-b4aa-ee46f818c0e6",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 93,
+      "total_deletions": 0,
+      "accepted_lines": 93,
+      "overriden_lines": 0
+    }
+  }
+}
