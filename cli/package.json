@@ -1,6 +1,6 @@
 {
   "name": "specteam-cli",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Thin local CLI for SpecTeam — installs prompt skills, renders divergence status, and scaffolds .spec/. All business logic runs in your AI assistant.",
   "bin": {
     "spec": "./bin/spec.js"

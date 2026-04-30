@@ -2,7 +2,7 @@
   "name": "specteam-vscode",
   "displayName": "SpecTeam",
   "description": "Visual dashboard for spec divergence review and decision alignment in SpecTeam.",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "publisher": "SpecTeam",
   "repository": {
     "type": "git",

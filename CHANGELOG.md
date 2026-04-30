@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-05-01
+
 ### Added
 - **`docs/design/W1-decisions.md`**: kicks off Phase 2 by extracting the eight schema decisions enumerated at the end of `protocol-audit.md` into a dedicated decision log. Each entry has explicit options, a "default if no answer", and an open/answered status field. The schema PR (FN-2) is gated on these decisions.
 - **Validator coverage for `open` and `fully-closed` divergences**: `tests/validate-divergences.js` now accepts those modes alongside `proposed` and `resolved`. `fully-closed` additionally asserts every action-item row carries a `✅`. The four modern fixtures under `tests/fixtures/states/` are wired up in `README.md`; `legacy-pre-3.0` is documented as deliberately validator-incompatible.
@@ -21,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **Foundation-tasks audit verification bug**: the awk range form used to count inconsistencies in `protocol-audit.md` closed on the heading line itself (because `^## ` matched both endpoints), so the assertion always returned 0. Replaced with a flag-driven awk that counts correctly.
 
-## [3.0.1] - 2026-04-24
+## [3.0.1]- 2026-04-24
 
 ### Removed
 - **Legacy PhoenixTeam surfaces**: removed 6 duplicate `phoenix-*` skill folders, `cli/bin/phoenix.js`, and root `PHOENIXTEAM.md`. The repo now uses `SpecTeam` / `spec-*` exclusively.

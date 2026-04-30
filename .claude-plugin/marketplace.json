@@ -8,7 +8,7 @@
       "name": "spec-team",
       "source": "./plugin",
       "description": "SpecTeam: AI-native spec review and decision alignment for product and engineering teams",
-      "version": "3.0.1"
+      "version": "3.1.0"
     }
   ]
 }
