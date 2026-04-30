@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **`docs/design/W1-decisions.md`**: kicks off Phase 2 by extracting the eight schema decisions enumerated at the end of `protocol-audit.md` into a dedicated decision log. Each entry has explicit options, a "default if no answer", and an open/answered status field. The schema PR (FN-2) is gated on these decisions.
 - **Validator coverage for `open` and `fully-closed` divergences**: `tests/validate-divergences.js` now accepts those modes alongside `proposed` and `resolved`. `fully-closed` additionally asserts every action-item row carries a `✅`. The four modern fixtures under `tests/fixtures/states/` are wired up in `README.md`; `legacy-pre-3.0` is documented as deliberately validator-incompatible.
 - **Cache anchors in fixture pack**: `resolved-pending-action-items/` and `fully-closed/` now ship `last-review.json` + `last-sync.json` so Workstream 2 (state engine) can exercise anchor-driven diff and consistency-score logic against fixture content. Hash values are placeholder sha256-shaped strings.
 - **Protocol audit extensions**: added "Cross-cutting: consistency score surfaces" (catalogues every place the 0-100 score is described today plus open questions on bucket cutoffs and additional factors) and "Out of scope but observed: RULES.md" (records that RULES.md exists in the protocol surface but is not yet enumerated as a W1 entity). Both sections feed two new decisions into the W1 schema-design input list.
