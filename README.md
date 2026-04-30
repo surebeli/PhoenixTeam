@@ -357,7 +357,7 @@ For any destructive or global write actions, you can append `--dry-run` to previ
 
 While SpecTeam is "Prompt-First", we provide lightweight companion tools to enhance your workflow.
 
-### SpecTeam CLI (`cli/`)
+### SpecTeam CLI (`packages/cli/`)
 
 A zero-logic Node.js CLI that assists with installation and provides a local status dashboard.
 
@@ -366,7 +366,7 @@ A zero-logic Node.js CLI that assists with installation and provides a local sta
 - **`spec init`**: Scaffolds the `.spec/` directory and guides you to the AI `/spec-init` prompt.
 - **`spec sos`**: Detects Git tree conflicts and provides emergency instructions.
 
-### VS Code Extension (`vscode-extension/`)
+### VS Code Extension (`packages/vscode-extension/`)
 
 A visual dashboard integrated into your IDE sidebar.
 

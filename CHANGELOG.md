@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Restructure repo to npm workspaces under `packages/` (FN-1): `cli/` → `packages/cli/`, `vscode-extension/` → `packages/vscode-extension/`, `tests/fixtures/states/` → `packages/spec-fixtures/states/`; add `packages/spec-schema/` skeleton (`@specteam/schema` v0.1.0) and `packages/spec-fixtures/` (`@specteam/fixtures` v0.1.0 private).
 
+### Fixed
+- Tighten FN-1 workspace migration follow-ups: root `build` now covers the VS Code extension, fixture validation examples use `packages/spec-fixtures/states/`, CLI package metadata points to `packages/cli`, and the stale nested CLI lockfile is removed in favor of the root workspace lockfile.
+
 ## [3.1.0] - 2026-05-01
 
 ### Added

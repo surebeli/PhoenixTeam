@@ -352,7 +352,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
 
 虽然 SpecTeam 遵循“Prompt 优先”原则，但我们提供了一些轻量级的伴生工具来增强您的工作流。
 
-### SpecTeam CLI (`cli/`)
+### SpecTeam CLI (`packages/cli/`)
 
 一个不包含业务逻辑的 Node.js CLI，用于辅助安装并提供本地状态面板。
 
@@ -361,7 +361,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
 - **`spec init`**: 搭建 `.spec/` 目录骨架，并引导您执行 AI 的 `/spec-init` 提示词。
 - **`spec sos`**: 检测 Git 树冲突并提供紧急处理指引。
 
-### VS Code 插件 (`vscode-extension/`)
+### VS Code 插件 (`packages/vscode-extension/`)
 
 集成在 IDE 侧边栏的可视化看板。
 

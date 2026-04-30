@@ -23,10 +23,10 @@ Reuse notes:
 `resolved`, `fully-closed` — and the modern fixtures map to them as follows:
 
 ```bash
-node tests/validate-divergences.js tests/fixtures/states/conflicted/DIVERGENCES.md open
-node tests/validate-divergences.js tests/fixtures/states/proposed-multi-party/DIVERGENCES.md proposed
-node tests/validate-divergences.js tests/fixtures/states/resolved-pending-action-items/DIVERGENCES.md resolved
-node tests/validate-divergences.js tests/fixtures/states/fully-closed/DIVERGENCES.md fully-closed
+node tests/validate-divergences.js packages/spec-fixtures/states/conflicted/DIVERGENCES.md open
+node tests/validate-divergences.js packages/spec-fixtures/states/proposed-multi-party/DIVERGENCES.md proposed
+node tests/validate-divergences.js packages/spec-fixtures/states/resolved-pending-action-items/DIVERGENCES.md resolved
+node tests/validate-divergences.js packages/spec-fixtures/states/fully-closed/DIVERGENCES.md fully-closed
 ```
 
 `clean-workspace` has no divergences, so there is nothing to validate. The
