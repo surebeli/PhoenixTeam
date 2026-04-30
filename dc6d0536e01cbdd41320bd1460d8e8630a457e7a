@@ -1,0 +1,40 @@
+README.md
+  0000019dde64059d 1-477
+README.zh-CN.md
+  0000019dde64059d 1-472
+CHANGELOG.md
+  0000019dde64059d 1-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "dc6d0536e01cbdd41320bd1460d8e8630a457e7a",
+  "prompts": {
+    "46b1355a89b4160b": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-1777552587702701500",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019dde64059d": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777552590237",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 1089,
+      "total_deletions": 0,
+      "accepted_lines": 1089,
+      "overriden_lines": 0
+    }
+  }
+}
