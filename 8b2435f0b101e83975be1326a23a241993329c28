@@ -1,0 +1,27 @@
+packages/cli/package.json
+  5328109e9328371e 1-52
+packages/cli/bin/spec.js
+  5328109e9328371e 8-16,23-30,50-195,197-198,341-358
+packages/cli/test/validate.test.js
+  5328109e9328371e 1-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "8b2435f0b101e83975be1326a23a241993329c28",
+  "prompts": {
+    "5328109e9328371e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "ad8802a2-7480-486b-b4aa-ee46f818c0e6",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 287,
+      "total_deletions": 0,
+      "accepted_lines": 287,
+      "overriden_lines": 0
+    }
+  }
+}
