@@ -359,6 +359,7 @@ Alice (Claude Code)                    Bob (Codex CLI)
 - **`spec install`**: 自动将技能拷贝到您的 `.claude/commands` 目录。
 - **`spec status`**: 显示 `DIVERGENCES.md` 和仓库状态的可视化汇总（零 Token 消耗）。
 - **`spec init`**: 搭建 `.spec/` 目录骨架，并引导您执行 AI 的 `/spec-init` 提示词。
+- **`spec validate`**: 对 `.spec/` 目录运行确定性的 schema 校验，支持逐文件结果和 JSON 输出。
 - **`spec sos`**: 检测 Git 树冲突并提供紧急处理指引。
 
 ### VS Code 插件 (`packages/vscode-extension/`)

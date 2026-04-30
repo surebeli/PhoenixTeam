@@ -4,7 +4,7 @@
 
 SpecTeam is a Git-native workflow for AI-native spec review and decision alignment. This lightweight Node CLI provides a local UX layer for installing SpecTeam, checking divergence state, and running the `spec-*` command surface locally.
 
-**Note:** This CLI contains **no business logic**. All divergence resolution, document parsing, and git operations are handled securely by your AI assistant (e.g. Claude Code or Codex) using the SpecTeam Prompts.
+**Note:** This CLI contains no workflow business logic. Divergence resolution still runs in your AI assistant; the only deterministic local logic is the thin `spec validate` smoke command backed by `@specteam/schema`.
 
 ## Installation
 
@@ -41,6 +41,16 @@ A highly visual, zero-token way to view the state of your `.spec/DIVERGENCES.md`
 spec sos
 ```
 If your `git pull` or `git push` fails due to a Git Tree Merge Conflict, run this command. It will scan your git tree, highlight the conflicted files, and instruct you on how to trigger the AI-powered `/spec-sos` auto-resolution tool.
+
+### 5. Deterministic Schema Check
+
+```bash
+spec validate
+spec validate --path=packages/spec-fixtures/states/clean-workspace
+spec validate --json
+```
+
+Validates the recognized `.spec/` markdown files in the target directory using the Phase 2 markdown parsers and AJV schemas from `@specteam/schema`. Human output lists per-file pass/fail and PX-P/PX-V codes, while `--json` emits a machine-readable report and preserves the same exit semantics: `0` when all files pass, `1` when any file fails.
 
 ## License
 MIT

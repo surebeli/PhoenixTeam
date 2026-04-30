@@ -5,11 +5,28 @@ const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const { execSync } = require('child_process');
+const {
+  parseCollaborators,
+  parseDecisions,
+  parseDivergences,
+  parseIndex,
+  parseSignals,
+  parseThesis,
+  validate,
+} = require('@specteam/schema');
 
 const pkg = require('../package.json');
 
 const SPEC_DIR = path.join(process.cwd(), '.spec');
 const DIVERGENCES_FILE = path.join(SPEC_DIR, 'DIVERGENCES.md');
+
+const VALIDATION_TARGETS = [
+  { fileName: 'COLLABORATORS.md', entityType: 'collaborator', parser: parseCollaborators },
+  { fileName: 'DIVERGENCES.md', entityType: 'divergence', parser: parseDivergences },
+  { fileName: 'SIGNALS.md', entityType: 'signal', parser: parseSignals },
+  { fileName: 'THESIS.md', entityType: 'thesis', parser: parseThesis },
+  { fileName: 'INDEX.md', entityType: 'index-doc', parser: parseIndex },
+];
 
 // Resolve the skills directory in both packaged (npm install) and repo-dev layouts.
 function resolveSkillsDir() {
@@ -31,6 +48,154 @@ function runCmd(cmd) {
   } catch (e) {
     return null;
   }
+}
+
+function resolveValidationPath(inputPath) {
+  return inputPath
+    ? path.resolve(inputPath)
+    : path.join(process.cwd(), '.spec');
+}
+
+function formatValidationFile(targetDir, filePath) {
+  const relativePath = path.relative(targetDir, filePath).replace(/\\/g, '/');
+  return relativePath || path.basename(filePath);
+}
+
+function collectValidationTargets(targetDir) {
+  const targets = [];
+
+  for (const target of VALIDATION_TARGETS) {
+    const filePath = path.join(targetDir, target.fileName);
+    if (fs.existsSync(filePath)) {
+      targets.push({
+        filePath,
+        entityType: target.entityType,
+        parser: target.parser,
+      });
+    }
+  }
+
+  const decisionsDir = path.join(targetDir, 'decisions');
+  if (fs.existsSync(decisionsDir) && fs.statSync(decisionsDir).isDirectory()) {
+    const decisionFiles = fs.readdirSync(decisionsDir)
+      .filter((fileName) => fileName.endsWith('.md'))
+      .sort();
+
+    for (const fileName of decisionFiles) {
+      targets.push({
+        filePath: path.join(decisionsDir, fileName),
+        entityType: 'decision',
+        parser: parseDecisions,
+      });
+    }
+  }
+
+  return targets;
+}
+
+function isEmptyDivergenceRegistry(text) {
+  return !/^###\s+D-\d{3}:/m.test(text)
+    && /_\(No unresolved divergences\)_/m.test(text)
+    && /_\(No proposed divergences\)_/m.test(text)
+    && /_\(No resolved divergences\)_/m.test(text);
+}
+
+function buildValidationReport(targetDir) {
+  const report = {
+    targetPath: targetDir,
+    results: [],
+    summary: {
+      passed: 0,
+      failed: 0,
+    },
+  };
+
+  if (!fs.existsSync(targetDir) || !fs.statSync(targetDir).isDirectory()) {
+    report.results.push({
+      file: targetDir,
+      entityType: null,
+      ok: false,
+      errors: [
+        {
+          code: 'PX-E003',
+          path: '/',
+          message: `Validation target not found: ${targetDir}`,
+        },
+      ],
+    });
+    report.summary.failed = 1;
+    return report;
+  }
+
+  const validationTargets = collectValidationTargets(targetDir);
+  for (const target of validationTargets) {
+    const relativeFile = formatValidationFile(targetDir, target.filePath);
+    const text = fs.readFileSync(target.filePath, 'utf8');
+
+    if (target.entityType === 'divergence' && isEmptyDivergenceRegistry(text)) {
+      report.results.push({
+        file: relativeFile,
+        entityType: target.entityType,
+        ok: true,
+        errors: [],
+      });
+      report.summary.passed += 1;
+      continue;
+    }
+
+    const parsed = target.parser(text);
+    if (!parsed.ok) {
+      report.results.push({
+        file: relativeFile,
+        entityType: target.entityType,
+        ok: false,
+        errors: parsed.errors,
+      });
+      report.summary.failed += 1;
+      continue;
+    }
+
+    const validated = validate(target.entityType, parsed.value);
+    if (!validated.ok) {
+      report.results.push({
+        file: relativeFile,
+        entityType: target.entityType,
+        ok: false,
+        errors: validated.errors,
+      });
+      report.summary.failed += 1;
+      continue;
+    }
+
+    report.results.push({
+      file: relativeFile,
+      entityType: target.entityType,
+      ok: true,
+      errors: [],
+    });
+    report.summary.passed += 1;
+  }
+
+  return report;
+}
+
+function printHumanValidationReport(report) {
+  for (const result of report.results) {
+    if (result.ok) {
+      console.log(chalk.green(`PASS ${result.file}`));
+      continue;
+    }
+
+    console.log(chalk.red(`FAIL ${result.file}`));
+    for (const error of result.errors) {
+      const location = error.line !== undefined
+        ? `${error.line}:${error.column}`
+        : (error.path || '/');
+      console.log(`  [${error.code}] ${location} ${error.message}`);
+    }
+  }
+
+  console.log(`Summary: ${report.summary.passed} passed, ${report.summary.failed} failed`);
 }
 
 // 1. Install Command
@@ -173,6 +338,24 @@ program
 
     console.log(chalk.magenta('\n✨ Environment ready. Open your AI assistant and run:'));
     console.log(chalk.white.bold('\n    /spec-init\n'));
+  });
+
+program
+  .command('validate')
+  .description('Validate deterministic .spec markdown files with @specteam/schema')
+  .option('--path <dir>', 'Validate a specific .spec directory instead of the current working directory/.spec')
+  .option('--json', 'Emit machine-readable JSON instead of the human summary')
+  .action((options) => {
+    const targetDir = resolveValidationPath(options.path);
+    const report = buildValidationReport(targetDir);
+
+    if (options.json) {
+      console.log(JSON.stringify(report, null, 2));
+    } else {
+      printHumanValidationReport(report);
+    }
+
+    process.exit(report.summary.failed > 0 ? 1 : 0);
   });
 
 program.parse(process.argv);
