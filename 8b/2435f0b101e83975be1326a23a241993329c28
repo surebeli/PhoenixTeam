@@ -1,9 +1,17 @@
-packages/cli/package.json
-  5328109e9328371e 1-52
+README.zh-CN.md
+  5328109e9328371e 362
 packages/cli/bin/spec.js
-  5328109e9328371e 8-16,23-30,50-195,197-198,341-358
+  5328109e9328371e 8-16,23-30,53-200,343-358
+packages/cli/package.json
+  5328109e9328371e 17,48
+CHANGELOG.md
+  5328109e9328371e 13
 packages/cli/test/validate.test.js
   5328109e9328371e 1-52
+README.md
+  5328109e9328371e 367
+packages/cli/README.md
+  5328109e9328371e 7,45-53
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -18,9 +26,9 @@ packages/cli/test/validate.test.js
       },
       "human_author": "litianyi",
       "messages": [],
-      "total_additions": 287,
-      "total_deletions": 0,
-      "accepted_lines": 287,
+      "total_additions": 252,
+      "total_deletions": 3,
+      "accepted_lines": 1416,
       "overriden_lines": 0
     }
   }
