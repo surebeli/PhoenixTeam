@@ -62,6 +62,9 @@ get an explicit "approved" reply:
 The agent must paste these five points back to the user and wait for "approved"
 before doing anything in FN-1.
 
+> **Approval recorded 2026-05-01.** User approved all five architectural
+> commitments above. FN-1 is unblocked.
+
 ## Global rules (apply to every task below)
 
 1. **Never edit `plugin/skills/*/SKILL.md`** in Phase 2. Skill behavior does

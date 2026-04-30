@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **`docs/design/W1-decisions.md`**: resolved D1-D8 with the audit-derived defaults approved by the user on 2026-05-01, unblocking the schema PR (FN-2).
+- **`docs/design/phase-2-tasks.md`**: recorded user approval for all five FN-1 architectural commitments, unblocking the monorepo layout task.
 - **`docs/design/foundation-tasks.md`**: marked FT-1..FT-3 / FT-2a / FT-2b as completed and pointed forward to `phase-2-tasks.md` so fresh sessions stop re-executing the pack.
 
 ### Fixed
