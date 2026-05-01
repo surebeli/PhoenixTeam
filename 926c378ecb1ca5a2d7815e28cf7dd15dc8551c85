@@ -1,0 +1,1639 @@
+docs/design/phase-2-tasks.md
+  0000019de44374a3 1-609
+.github/workflows/validate.yml
+  0000019de44374a3 1-397
+README.md
+  0000019de44374a3 1-483
+README.zh-CN.md
+  0000019de44374a3 1-478
+docs/design/W1-decisions.md
+  0000019de44374a3 1-249
+packages/cli/README.md
+  0000019de44374a3 1-56
+packages/cli/bin/spec.js
+  0000019de44374a3 1-376
+packages/cli/package.json
+  0000019de44374a3 1-55
+packages/cli/scripts/postpack.js
+  0000019de44374a3 1-21
+packages/cli/scripts/prepack.js
+  0000019de44374a3 1-76
+packages/cli/test/validate.test.js
+  0000019de44374a3 1-61
+packages/spec-schema/src/index.ts
+  0000019de44374a3 1-45
+packages/spec-schema/src/migrations/legacy-pre-3.0.ts
+  0000019de44374a3 1-220
+packages/spec-schema/src/parsers/divergences.parser.ts
+  0000019de44374a3 1-261
+packages/spec-schema/src/parsers/index.ts
+  0000019de44374a3 1-5
+packages/spec-schema/src/schemas/divergence.schema.json
+  0000019de44374a3 1-243
+packages/spec-schema/src/schemas/index.ts
+  0000019de44374a3 1-10
+packages/spec-schema/src/types/index.ts
+  0000019de44374a3 1-33
+packages/spec-schema/src/validator.ts
+  0000019de44374a3 1-254
+packages/spec-schema/test/fixture-models.ts
+  0000019de44374a3 1-239
+packages/spec-schema/test/migrations.test.ts
+  0000019de44374a3 1-50
+packages/spec-schema/test/parsers.test.ts
+  0000019de44374a3 1-97
+packages/spec-schema/test/validator.test.ts
+  0000019de44374a3 1-108
+plugin/ERRORS.md
+  0000019de44374a3 1-101
+docs/design/phase-2-remediation-prompt.md
+  0000019de44374a3 1-82
+docs/design/phase-2-review.md
+  0000019de44374a3 1-244
+docs/design/task-planning-review-gate.md
+  0000019de44374a3 1-114
+packages/cli/test/pack-install-smoke.js
+  0000019de44374a3 1-64
+package-lock.json
+  0000019de44374a3 1-251
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "926c378ecb1ca5a2d7815e28cf7dd15dc8551c85",
+  "prompts": {
+    "5328109e9328371e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "ad8802a2-7480-486b-b4aa-ee46f818c0e6",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c185d": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631762525"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c1b04": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631763204",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c1c61": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631763553",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c49bf": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631775167"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c4ae1": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631775457"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c78c8": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631787208",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c7a16": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631787542",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31c7b44": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631787844",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31cae61": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631800929"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31cafa3": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631801251",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31cb130": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631801648"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31cb24c": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631801932"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31ce49e": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631814814",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31ce636": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631815222"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31ce7fa": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631815674",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31ce978": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631816056",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31d2206": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631830534",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31d2367": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631830887",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31d24d4": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631831252",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31d263e": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777631831614",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31d7388": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777631851400",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de31e6216": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777631912470",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3201b15": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777632025365"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de32056aa": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777632040618",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de32072a1": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777632047777"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de320934b": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777632056139",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de320b1e0": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777632063968",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de320cdcb": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777632071115",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3224cc4": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777632169156",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3228574": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777632183668"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de32287bf": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777632184255",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3228a3c": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777632184892"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3228be8": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777632185320",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de322a82c": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777632192556",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3f91cb2": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646247090",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3f9a6fb": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646282491",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fa5f33": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646329651",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fa870f": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646339855"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3faa273": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646346867",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fabb9d": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646353309"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fadbda": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646361562"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3faf3e2": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646367714",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb1b67": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646377831"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb1cda": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646378202"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb4b23": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646390051"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb85cf": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646405071",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb8755": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646405461"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fb8899": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646405785"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fbaf8f": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646415759"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fbd8ad": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646426285",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fbf517": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646433559",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc1a74": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646443124"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc1c0e": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646443534",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc1d44": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646443844",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc4f6b": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646456683",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc5274": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646457460",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc9637": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777646474807"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc9897": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646475415"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fc9af2": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646476018"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fccadb": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777646488283"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fd1cc5": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646509253",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de3fd3d82": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777646517634",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de40a172c": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777647359788"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de40a187e": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777647360126"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f10f0": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648734448",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f124b": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648734795",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f13a4": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648735140",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f14f9": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648735481",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f477e": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648748414",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f48e9": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648748777",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f4a46": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648749126",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f4b9a": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777648749466",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f8178": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777648763256",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f830f": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648763663"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f847e": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648764030",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41f85d3": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777648764371"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41fae6c": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648774764"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41fafbe": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648775102",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41fb127": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648775463",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41fb28e": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648775822",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de41fccc9": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648782537",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de420140a": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648800778",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4202e5f": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648807519",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4215dc8": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648885192",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de421e0a9": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648918697"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de42223e6": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777648935910"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de42252e8": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648947944"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de422543c": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648948284",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de422559e": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777648948638"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4228349": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648960329",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de422a75b": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777648969563",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de422d7b6": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777648981942",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de42359b6": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777649015222"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4238aa8": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777649027752"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4238be5": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777649028069"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4238d3a": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777649028410"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de423cc31": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777649044529",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4241cdd": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777649065181",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4241e39": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777649065529",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de4241f72": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777649065842",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de42456a4": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777649079972",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de424878f": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777649092495"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de424a941": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777649101121"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43d9702": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777650734850",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43decf6": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777650756854",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43dee5b": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650757211",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43def8d": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777650757517"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43e1a01": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777650768385"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43e3961": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650776417",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43eb5a3": {
+      "agent_id": {
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777650808227",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43eb6e4": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777650808548"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43eb831": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650808881",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43ede94": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650818708",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43edfcd": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777650819021",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43f041c": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650828316",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de43f54e2": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650848994",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de440664c": {
+      "agent_id": {
+        "model": "unknown",
+        "tool": "mock_ai",
+        "id": "ai-thread-mockai-1777650918988"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de440ed12": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650953490",
+        "model": "unknown",
+        "tool": "mock_ai"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de440ee4b": {
+      "agent_id": {
+        "id": "ai-thread-mockai-1777650953803",
+        "tool": "mock_ai",
+        "model": "unknown"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "0000019de44374a3": {
+      "agent_id": {
+        "tool": "mock_ai",
+        "model": "unknown",
+        "id": "ai-thread-mockai-1777651119267"
+      },
+      "human_author": "litianyi",
+      "messages": [],
+      "total_additions": 5282,
+      "total_deletions": 0,
+      "accepted_lines": 5282,
+      "overriden_lines": 0
+    }
+  }
+}
